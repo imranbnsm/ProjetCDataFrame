@@ -11,8 +11,10 @@ include_directories(PARTIE2)
 add_executable(PARTIE1SIMPLE
         PARTIE1SIMPLE/Colonnes.c
         PARTIE1SIMPLE/Colonnes.h
-        PARTIE1SIMPLE/main.c)
+        PARTIE1SIMPLE/main.c
+        PARTIE2/main2.c)
 add_executable(PARTIE2
         PARTIE2/fonctions.c
         PARTIE2/fonctions.h
+        PARTIE2/main2.c
         PARTIE2/main2.c)

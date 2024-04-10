@@ -128,6 +128,19 @@ PARTIE1SIMPLE/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE1SIMPLE.dir\build.make CMakeFiles/PARTIE1SIMPLE.dir/build
 .PHONY : PARTIE1SIMPLE/fast
 
+#=============================================================================
+# Target rules for targets named PARTIE2
+
+# Build rule for target.
+PARTIE2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 PARTIE2
+.PHONY : PARTIE2
+
+# fast build rule for target.
+PARTIE2/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/build
+.PHONY : PARTIE2/fast
+
 PARTIE1SIMPLE/Colonnes.obj: PARTIE1SIMPLE/Colonnes.c.obj
 .PHONY : PARTIE1SIMPLE/Colonnes.obj
 
@@ -176,6 +189,57 @@ PARTIE1SIMPLE/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE1SIMPLE.dir\build.make CMakeFiles/PARTIE1SIMPLE.dir/PARTIE1SIMPLE/main.c.s
 .PHONY : PARTIE1SIMPLE/main.c.s
 
+PARTIE2/fonctions.obj: PARTIE2/fonctions.c.obj
+.PHONY : PARTIE2/fonctions.obj
+
+# target to build an object file
+PARTIE2/fonctions.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/fonctions.c.obj
+.PHONY : PARTIE2/fonctions.c.obj
+
+PARTIE2/fonctions.i: PARTIE2/fonctions.c.i
+.PHONY : PARTIE2/fonctions.i
+
+# target to preprocess a source file
+PARTIE2/fonctions.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/fonctions.c.i
+.PHONY : PARTIE2/fonctions.c.i
+
+PARTIE2/fonctions.s: PARTIE2/fonctions.c.s
+.PHONY : PARTIE2/fonctions.s
+
+# target to generate assembly for a file
+PARTIE2/fonctions.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/fonctions.c.s
+.PHONY : PARTIE2/fonctions.c.s
+
+PARTIE2/main2.obj: PARTIE2/main2.c.obj
+.PHONY : PARTIE2/main2.obj
+
+# target to build an object file
+PARTIE2/main2.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE1SIMPLE.dir\build.make CMakeFiles/PARTIE1SIMPLE.dir/PARTIE2/main2.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/main2.c.obj
+.PHONY : PARTIE2/main2.c.obj
+
+PARTIE2/main2.i: PARTIE2/main2.c.i
+.PHONY : PARTIE2/main2.i
+
+# target to preprocess a source file
+PARTIE2/main2.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE1SIMPLE.dir\build.make CMakeFiles/PARTIE1SIMPLE.dir/PARTIE2/main2.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/main2.c.i
+.PHONY : PARTIE2/main2.c.i
+
+PARTIE2/main2.s: PARTIE2/main2.c.s
+.PHONY : PARTIE2/main2.s
+
+# target to generate assembly for a file
+PARTIE2/main2.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE1SIMPLE.dir\build.make CMakeFiles/PARTIE1SIMPLE.dir/PARTIE2/main2.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/main2.c.s
+.PHONY : PARTIE2/main2.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -185,12 +249,19 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... PARTIE1SIMPLE
+	@echo ... PARTIE2
 	@echo ... PARTIE1SIMPLE/Colonnes.obj
 	@echo ... PARTIE1SIMPLE/Colonnes.i
 	@echo ... PARTIE1SIMPLE/Colonnes.s
 	@echo ... PARTIE1SIMPLE/main.obj
 	@echo ... PARTIE1SIMPLE/main.i
 	@echo ... PARTIE1SIMPLE/main.s
+	@echo ... PARTIE2/fonctions.obj
+	@echo ... PARTIE2/fonctions.i
+	@echo ... PARTIE2/fonctions.s
+	@echo ... PARTIE2/main2.obj
+	@echo ... PARTIE2/main2.i
+	@echo ... PARTIE2/main2.s
 .PHONY : help
 
 
