@@ -14,15 +14,6 @@ CMake Deprecation Warning:
 -- Check for working C compiler: C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/gcc.exe - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
--- Configuring done (5.0s)
-CMake Error at CMakeLists.txt:11 (add_executable):
-  Cannot find source file:
-
-    PARTIE1DURE/Colonnes2.c
-
-
-CMake Error at CMakeLists.txt:11 (add_executable):
-  No SOURCES given to target: PARTIE1DURE
-
-
-CMake Generate step failed.  Build files cannot be regenerated correctly.
+-- Configuring done (5.8s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/antoi/CLionProjects/ProjetCDataFrame/cmake-build-debug
