@@ -9,7 +9,7 @@ typedef struct{
 }COLONNE;
 
 COLONNE* creer_colonne(char* titre);
-void inserer_valeur(COLONNE* col, int valeur);
+int inserer_valeur(COLONNE* col, int valeur);
 void supprimer_colonne(COLONNE **col);
 void print_col(COLONNE* col);
 void print_col_lig(COLONNE* col, int nb_lignes);

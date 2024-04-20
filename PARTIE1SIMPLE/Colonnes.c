@@ -15,7 +15,7 @@ COLONNE* creer_colonne(char* titre){
     return colonne;
 }
 
-void inserer_valeur(COLONNE* col, int valeur){
+int inserer_valeur(COLONNE* col, int valeur){
     if(col->Donnees == NULL){
         col->Donnees = (int*)malloc(col->TP * sizeof(int));
         col->Donnees[col->TL]=valeur;
@@ -30,13 +30,13 @@ void inserer_valeur(COLONNE* col, int valeur){
     }else{
         col->Donnees[col->TL]=valeur;
         (col->TL)++;
-    }
 
-//if(col->Donnees[col->TL-1]==valeur){
-    // return 1;
-    // }else{
-    //  return 0;
-    //}
+    }
+    if(col->Donnees[col->TL-1]==valeur){
+        return 1;
+    }else{
+        return 0;
+    }
 }
 
 void supprimer_colonne(COLONNE **col){
@@ -127,7 +127,7 @@ COLONNE ** creer_CDataframe() {
 }
 
 void remplissage_Cdata(COLONNE ** Cdata){
-    int n;
+    int n,var_verif;
     printf("Combien de colonnes ? :\n");
     scanf("%d",&n);
     if (n>5) {
@@ -150,7 +150,7 @@ void remplissage_Cdata(COLONNE ** Cdata){
             int val;
             printf("Valeur %d :\n", j + 1);
             scanf("%d", &val);
-            inserer_valeur(p, val);
+            var_verif=inserer_valeur(p, val);
         }
     }
 }

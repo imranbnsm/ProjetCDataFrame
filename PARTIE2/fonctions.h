@@ -17,11 +17,15 @@ union column_type{
 };
 typedef union column_type COL_TYPE ;
 struct column {
-    char *title;
-    unsigned int size; //logical size
-    unsigned int max_size; //physical size
+    char *titre;
+    unsigned int TL;
+    unsigned int TP;
     ENUM_TYPE column_type;
     COL_TYPE **data; // array of pointers to stored data
     unsigned long long int *index; // array of integers
 };
 typedef struct column COLUMN;
+
+COLUMN * creer_colonne(ENUM_TYPE type, char* titre);
+int insert_value(COLUMN *col, void *value);
+void delete_column(COLUMN **col);
