@@ -126,7 +126,7 @@ COLONNE ** creer_CDataframe() {
     return Cdata;
 }
 
-void remplissage_Cdata(COLONNE ** Cdata){
+int remplissage_Cdata(COLONNE ** Cdata){
     int n,var_verif;
     printf("Combien de colonnes ? :\n");
     scanf("%d",&n);
@@ -143,7 +143,7 @@ void remplissage_Cdata(COLONNE ** Cdata){
         printf("Nombre de valeurs dans cette colonne :\n");
         scanf("%d",&nb_valeurs);
 
-        COLONNE*p = creer_colonne(&titre);
+        COLONNE*p = creer_colonne((char *) &titre);
         Cdata[i]=p;
 
         for (int j=0;j<nb_valeurs;j++) {
@@ -153,30 +153,58 @@ void remplissage_Cdata(COLONNE ** Cdata){
             var_verif=inserer_valeur(p, val);
         }
     }
+    return n;
 }
 
-void remplissage_dur(COLONNE** Cdata){
+int remplissage_dur(COLONNE** Cdata){
     COLONNE* p=NULL;
     p=creer_colonne("Col1");
     Cdata[0]=p;
     p->TL=5;
-    memcpy(p->Donnees, (int[]){1, 2, 3, 4, 5}, 5 * sizeof(int));
+    //memcpy(p->Donnees, (int[]){1, 2, 3, 4, 5}, 5 * sizeof(int));
+    p->Donnees= malloc(5*sizeof(int));
+    p->Donnees[0] = 1;
+    p->Donnees[1] = 2;
+    p->Donnees[2] = 3;
+    p->Donnees[3] = 4;
+    p->Donnees[4] = 5;
     p=creer_colonne("Col2");
     Cdata[1]=p;
     p->TL=5;
-    memcpy(p->Donnees, (int[]){6, 7, 8, 9, 10}, 5 * sizeof(int));
+    p->Donnees= malloc(5*sizeof(int));
+    p->Donnees[0] = 1;
+    p->Donnees[1] = 2;
+    p->Donnees[2] = 3;
+    p->Donnees[3] = 4;
+    p->Donnees[4] = 5;
     p=creer_colonne("Col3");
     Cdata[2]=p;
     p->TL=5;
-    memcpy(p->Donnees, (int[]){11,12,13,14,15}, 5 * sizeof(int));
+    p->Donnees= malloc(5*sizeof(int));
+    p->Donnees[0] = 1;
+    p->Donnees[1] = 2;
+    p->Donnees[2] = 3;
+    p->Donnees[3] = 4;
+    p->Donnees[4] = 5;
     p=creer_colonne("Col4");
     Cdata[3]=p;
     p->TL=5;
-    memcpy(p->Donnees, (int[]){16, 17, 18, 19, 20}, 5 * sizeof(int));
+    p->Donnees= malloc(5*sizeof(int));
+    p->Donnees[0] = 1;
+    p->Donnees[1] = 2;
+    p->Donnees[2] = 3;
+    p->Donnees[3] = 4;
+    p->Donnees[4] = 5;
     p=creer_colonne("Col5");
     Cdata[4]=p;
     p->TL=5;
-    memcpy(p->Donnees, (int[]){21, 22, 23, 24, 25}, 5 * sizeof(int));;
+    p->Donnees= malloc(5*sizeof(int));
+    p->Donnees[0] = 1;
+    p->Donnees[1] = 2;
+    p->Donnees[2] = 3;
+    p->Donnees[3] = 4;
+    p->Donnees[4] = 5;
+    return 5;
 }
 
 
@@ -212,7 +240,14 @@ void affichage_partiel_lig(COLONNE** Cdata, int taille) {
         j++;
     }
 }
-
+void ajouter_ligne(COLONNE** Cdata, int taille){
+    int val=0;
+    for(int i=0; i<taille; i++){
+        printf("Quelle valeur voulez vous ajouter ? : \n");
+        scanf(" %d",&val);
+        inserer_valeur(Cdata[i],val);
+    }
+    }
 void supprimer_ligne(COLONNE** Cdata, int taille){
     for(int i =0; i<taille; i++) {
         Cdata[i]->Donnees[Cdata[i]->TL] = (int) NULL;
@@ -220,19 +255,21 @@ void supprimer_ligne(COLONNE** Cdata, int taille){
     }
 }
 
-void ajouter_colonne(COLONNE** Cdata, int taille){
+int ajouter_colonne(COLONNE** Cdata, int taille){
     Cdata = realloc(Cdata, (taille + 1) * sizeof(COLONNE *));
     taille+=1;
     char titre[100];
     printf("Quel nom souhaitez-vous attribuer à votre nouvelle colonne : ?\n");
     scanf("%s",titre);
     Cdata[taille]= creer_colonne(titre);
+    return taille;
 }
 
-void supprimer_colonne_Cdataframe(COLONNE** Cdata, int taille){
+int supprimer_colonne_Cdataframe(COLONNE** Cdata, int taille){
     supprimer_colonne(Cdata[taille]);
     taille-=1;
     Cdata = realloc(Cdata,taille * sizeof (COLONNE*));
+    return taille;
 }
 
 void renommer_colonne(COLONNE** Cdata, int taille){
@@ -299,7 +336,7 @@ void nombre_cellules_egales_x(COLONNE** Cdata,int taille, int x){
     for (int i =0; i<taille; i++){
         nb += nb_val_egal(Cdata[i],x);
     }
-    printf("Il y a %d cellules contentant une valeur égale à %d.",nb,x);
+    printf("Il y a %d cellules contenant une valeur egale a %d.\n",nb,x);
 }
 
 void nombre_cellules_sup_x(COLONNE** Cdata,int taille, int x){
@@ -307,7 +344,7 @@ void nombre_cellules_sup_x(COLONNE** Cdata,int taille, int x){
     for (int i =0; i<taille; i++){
         nb += nb_val_sup(Cdata[i],x);
     }
-    printf("Il y a %d cellules contentant une valeur supérieure à %d.",nb,x);
+    printf("Il y a %d cellules contenant une valeur supérieure à %d.",nb,x);
 }
 
 void nombre_cellules_inf_x(COLONNE** Cdata,int taille, int x){
@@ -315,7 +352,7 @@ void nombre_cellules_inf_x(COLONNE** Cdata,int taille, int x){
     for (int i =0; i<taille; i++){
         nb += nb_val_inf(Cdata[i],x);
     }
-    printf("Il y a %d cellules contentant une valeur inférieure à %d.",nb,x);
+    printf("Il y a %d cellules contenant une valeur inférieure à %d.",nb,x);
 }
 
 
@@ -330,15 +367,7 @@ void nombre_cellules_inf_x(COLONNE** Cdata,int taille, int x){
 
 
 
-//Problème à régler
-// void ajouter_ligne(COLONNE** Cdata, int taille){
-//int val=0;
-//for(int i=0; i<taille; i++){
-//    printf("Quelle valeur voulez vous ajouter : ?\n");
-//   scanf("%d",&val);
-//    inserer_valeur(Cdata[i],val);
-// }
-//}
+
 
 
 

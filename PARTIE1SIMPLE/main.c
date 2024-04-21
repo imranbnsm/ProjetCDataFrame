@@ -1,9 +1,12 @@
 #include "Colonnes.h"
 
 int main(){
-    COLONNE** a = creer_CDataframe();
-    remplissage_Cdata(a);
-    nombre_cellules_egales_x(a,1,5);
-
+    COLONNE** Cd = creer_CDataframe();
+    int C_TL;
+    C_TL=remplissage_dur(Cd);
+    affichage_entier(Cd,C_TL);
+    nombre_cellules_egales_x(Cd,1,5);
+    ajouter_ligne(Cd,C_TL);
+    affichage_entier(Cd,C_TL);
     return 0;
 }
