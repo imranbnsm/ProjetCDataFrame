@@ -9,10 +9,10 @@ include_directories(PARTIE2)
 
 # Ajoutez tous vos fichiers sources ici
 add_executable(PARTIE1SIMPLE
-        PARTIE1SIMPLE/Colonnes.c
-        PARTIE1SIMPLE/Colonnes.h
-        PARTIE1SIMPLE/main.c
-        PARTIE2/main2.c)
+        PARTIE1SIMPLE/column.c
+        PARTIE1SIMPLE/column.h
+        PARTIE1SIMPLE/cdataframe.h
+        PARTIE1SIMPLE/main.c)
 add_executable(PARTIE2
         PARTIE2/fonctions.c
         PARTIE2/fonctions.h

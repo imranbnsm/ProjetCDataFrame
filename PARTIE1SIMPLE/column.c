@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Colonnes.h"
-
+#include "column.h"
+#include "cdataframe.h"
 #define REALOC_SIZE 256
 
 

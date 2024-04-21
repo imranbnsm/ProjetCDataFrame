@@ -1,10 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/PARTIE1SIMPLE.dir/PARTIE1SIMPLE/Colonnes.c.obj"
-  "CMakeFiles/PARTIE1SIMPLE.dir/PARTIE1SIMPLE/Colonnes.c.obj.d"
+  "CMakeFiles/PARTIE1SIMPLE.dir/PARTIE1SIMPLE/column.c.obj"
+  "CMakeFiles/PARTIE1SIMPLE.dir/PARTIE1SIMPLE/column.c.obj.d"
   "CMakeFiles/PARTIE1SIMPLE.dir/PARTIE1SIMPLE/main.c.obj"
   "CMakeFiles/PARTIE1SIMPLE.dir/PARTIE1SIMPLE/main.c.obj.d"
-  "CMakeFiles/PARTIE1SIMPLE.dir/PARTIE2/main2.c.obj"
-  "CMakeFiles/PARTIE1SIMPLE.dir/PARTIE2/main2.c.obj.d"
   "PARTIE1SIMPLE.exe"
   "PARTIE1SIMPLE.exe.manifest"
   "PARTIE1SIMPLE.pdb"

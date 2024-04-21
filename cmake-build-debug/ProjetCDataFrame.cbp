@@ -122,10 +122,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE1SIMPLE/Colonnes.c">
+		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE1SIMPLE/cdataframe.h">
 			<Option target="PARTIE1SIMPLE"/>
 		</Unit>
-		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE1SIMPLE/Colonnes.h">
+		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE1SIMPLE/column.c">
+			<Option target="PARTIE1SIMPLE"/>
+		</Unit>
+		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE1SIMPLE/column.h">
 			<Option target="PARTIE1SIMPLE"/>
 		</Unit>
 		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE1SIMPLE/main.c">
@@ -138,7 +141,6 @@
 			<Option target="PARTIE2"/>
 		</Unit>
 		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/main2.c">
-			<Option target="PARTIE1SIMPLE"/>
 			<Option target="PARTIE2"/>
 		</Unit>
 		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/CMakeLists.txt">
