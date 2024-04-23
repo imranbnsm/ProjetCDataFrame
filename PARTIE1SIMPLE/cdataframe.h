@@ -1,12 +1,6 @@
 #ifndef PROJETCDATAFRAME_CDATAFRAME_H
 #define PROJETCDATAFRAME_CDATAFRAME_H
-
-typedef struct{
-    char* Titre;
-    int TP;
-    int TL;
-    int* Donnees;
-}COLONNE;
+#include "column.h"
 
 // la structure choisie pour le CdataFrame est un tableau de pointeurs
 
