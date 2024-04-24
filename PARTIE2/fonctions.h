@@ -6,6 +6,8 @@ enum enum_type
     NULLVAL = 1 , UINT, INT, CHAR, FLOAT, DOUBLE, STRING, STRUCTURE
 };
 typedef enum enum_type ENUM_TYPE;
+
+
 union column_type{
     unsigned int uint_value;
     signed int int_value;
@@ -16,6 +18,8 @@ union column_type{
     void* struct_value;
 };
 typedef union column_type COL_TYPE ;
+
+
 struct column {
     char *titre;
     unsigned int TL;
@@ -29,3 +33,6 @@ typedef struct column COLUMN;
 COLUMN * creer_colonne(ENUM_TYPE type, char* titre);
 int insert_value(COLUMN *col, void *value);
 void delete_column(COLUMN **col);
+void convert_value(COLUMN *col, unsigned long long int i, char *str, int size);
+
+#endif // PROJETC_COLONNES_H
