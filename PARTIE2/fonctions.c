@@ -26,14 +26,12 @@ int insert_value(COLUMN *col, void *value) {
 
     if (col->TL == col->TP) {
         col->TP += REALOC_SIZE;
-        col->data = realloc(col->data, col->TP * sizeof(COL_TYPE *));
+        col->data = realloc(col->data, col->TP * sizeof(col->column_type));
         col->index = realloc(col->index, col->TP * sizeof(unsigned long long int));
     }
-
-    col->data[col->TL] = malloc(sizeof(COL_TYPE));
-
     switch (col->column_type) {
         case INT:
+            col->data[col->TL] = malloc(sizeof(int));
             *((int *) col->data[col->TL]) = *((int *) value);
             break;
         case CHAR:
@@ -51,20 +49,17 @@ int insert_value(COLUMN *col, void *value) {
         case STRING:
             *((char **) col->data[col->TL]) = *((char **) value);
             break;
-            //case STRUCTURE:
+        case STRUCTURE:
             //col->data[col->TL] = (struct *) malloc (sizeof(struct));
             //*((struct*)col->data[col->TL])= *((struct*)value);
-            //break;
+            break;
     }
-
+    col->TL++;
     if (col->data[col->TL] == value) {
         return 1;
     } else {
         return 0;
     }
-
-    col->TL++;
-
 }
 
 

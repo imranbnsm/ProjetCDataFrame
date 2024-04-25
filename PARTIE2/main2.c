@@ -10,7 +10,7 @@ int main() {
 
     int value = 42;
     insert_value(col,&value);
-    printf("d",col->data[0]);
+    printf("%d",col->data[0]);
 
     return 0;
 }
