@@ -2,15 +2,17 @@
 #include <stdio.h>
 
 int main() {
-    COLUMN *col = creer_colonne(INT, "MaColonne");
-    if (col == NULL) {
-        printf("Erreur lors de la création de la colonne.\n");
-        return 1;
-    }
 
-    int value = 42;
-    insert_value(col,&value);
-    printf("%d",col->data[0]);
+    char value[5];
+    COLUMN *col = creer_colonne(STRING, "MaColonne");
+    int a = 52, b = 44, c = 15, d = 18;
+    insert_value(col,&a);
+    insert_value(col,&b);
+    insert_value(col,&c);
+    insert_value(col,&d);
+    convert_value(col,2,value,5);
+    printf("%s ",value);
+
 
     return 0;
 }

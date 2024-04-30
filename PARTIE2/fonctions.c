@@ -12,7 +12,7 @@ COLUMN *creer_colonne(ENUM_TYPE type, char* titre) {
     }
 
     colonne->titre = strdup(titre);
-    colonne->TP = 256;
+    colonne->TP = 0;
     colonne->TL = 0;
     colonne->column_type = type;
     colonne->data = NULL;
