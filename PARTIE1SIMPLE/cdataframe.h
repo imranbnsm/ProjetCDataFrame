@@ -1,24 +1,8 @@
-#ifndef PROJETC_COLONNES_H
-#define PROJETC_COLONNES_H
+#ifndef PROJETCDATAFRAME_CDATAFRAME_H
+#define PROJETCDATAFRAME_CDATAFRAME_H
+#include "column.h"
 
-typedef struct{
-    char* Titre;
-    int TP;
-    int TL;
-    int* Donnees;
-}COLONNE;
-
-COLONNE* creer_colonne(char* titre);
-int inserer_valeur(COLONNE* col, int valeur);
-void supprimer_colonne(COLONNE **col);
-void print_col(COLONNE* col);
-void print_col_lig(COLONNE* col, int nb_lignes);
-
-int occurences(COLONNE* col, int val);
-int val_position(COLONNE* col, int pos);
-int nb_val_sup(COLONNE* col, int val);
-int nb_val_inf(COLONNE* col, int val);
-int nb_val_egal(COLONNE* col, int val);
+// la structure choisie pour le CdataFrame est un tableau de pointeurs
 
 COLONNE ** creer_CDataframe();
 int remplissage_Cdata(COLONNE** Cdata);
@@ -42,8 +26,4 @@ void nombre_cellules_egales_x(COLONNE** Cdata,int taille, int x);
 void nombre_cellules_sup_x(COLONNE** Cdata,int taille, int x);
 void nombre_cellules_inf_x(COLONNE** Cdata,int taille, int x);
 
-
-
-void ajouter_ligne(COLONNE** Cdata, int taille);
-
-#endif //PROJETC_COLONNES_H
+#endif //PROJETCDATAFRAME_CDATAFRAME_H
