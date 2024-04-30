@@ -34,5 +34,6 @@ COLUMN * creer_colonne(ENUM_TYPE type, char* titre);
 int insert_value(COLUMN *col, void *value);
 void delete_column(COLUMN **col);
 void convert_value(COLUMN *col, unsigned long long int i, char *str, int size);
+void afficher_col(COLUMN*col);
 
 #endif // PROJETC_COLONNES_H

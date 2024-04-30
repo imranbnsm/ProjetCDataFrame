@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "fonctions.h"
-#define REALOC_SIZE 256
+#define REALLOC_SIZE 256
 
 COLUMN *creer_colonne(ENUM_TYPE type, char* titre) {
     COLUMN *colonne = (COLUMN *) malloc(sizeof(COLUMN));
@@ -21,20 +21,32 @@ COLUMN *creer_colonne(ENUM_TYPE type, char* titre) {
     return colonne;
 }
 
-
 int insert_value(COLUMN *col, void *value) {
 
     if (col->TL == col->TP) {
-        col->TP += REALOC_SIZE;
-        col->data = realloc(col->data, col->TP * sizeof(col->column_type));
+        col->TP += REALLOC_SIZE;
+        col->data = realloc(col->data, col->TP * sizeof(void *));
         col->index = realloc(col->index, col->TP * sizeof(unsigned long long int));
     }
+
+    if (col->data == NULL || col->index == NULL) {
+        return 0; // Échec de l'allocation de mémoire
+    }
+
+    if (value==NULL){
+        col->data[col->TL] = NULL;
+        col->TL++;
+    }
+
     switch (col->column_type) {
         case INT:
             col->data[col->TL] = malloc(sizeof(int));
+            if (col->data[col->TL] == NULL) return 0; // Échec de l'allocation de mémoire
             *((int *) col->data[col->TL]) = *((int *) value);
             break;
         case CHAR:
+            col->data[col->TL] = malloc(sizeof(char));
+            if (col->data[col->TL] == NULL) return 0; // Échec de l'allocation de mémoire
             *((char *) col->data[col->TL]) = *((char *) value);
             break;
         case UINT:
@@ -55,19 +67,17 @@ int insert_value(COLUMN *col, void *value) {
             break;
     }
     col->TL++;
-    if (col->data[col->TL] == value) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return 1; // Succès
 }
-
 
 void delete_column(COLUMN **col){
-    free((*col)->data);
-    free((*col));
+    if (*col != NULL) {
+        free((*col)->data);
+        free((*col)->titre);
+        free((*col));
+        *col = NULL; // Éviter les pointeurs libérés
+    }
 }
-
 
 void convert_value(COLUMN *col, unsigned long long int i, char *str, int size) {
     if (i >= col->TL) {
@@ -75,6 +85,9 @@ void convert_value(COLUMN *col, unsigned long long int i, char *str, int size) {
         return;
     }
 
+    if(col->data[col->TL]==NULL){
+        printf("NULL");
+    }
     switch(col->column_type) {
         case INT:
             snprintf(str, size, "%d", *((int*)col->data[i]));
@@ -100,7 +113,11 @@ void convert_value(COLUMN *col, unsigned long long int i, char *str, int size) {
     }
 }
 
-
-
-
-
+void afficher_col(COLUMN*col){
+    char str[10];
+    for(int i=0;i<col->TL;i++){
+        convert_value(col,i,str,10);
+        printf("[%d] %s ",i, str);
+        free(str);
+    }
+}

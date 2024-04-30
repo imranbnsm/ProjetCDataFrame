@@ -3,16 +3,18 @@
 
 int main() {
 
-    char value[5];
-    COLUMN *col = creer_colonne(STRING, "MaColonne");
-    int a = 52, b = 44, c = 15, d = 18;
-    insert_value(col,&a);
-    insert_value(col,&b);
-    insert_value(col,&c);
-    insert_value(col,&d);
-    convert_value(col,2,value,5);
-    printf("%s ",value);
 
+    char str[5];
+    COLUMN *mycol = creer_colonne(CHAR, "Column 1");
+    char a = 'A', c = 'C';
+    insert_value(mycol, &a);
+    insert_value(mycol, NULL);
+    insert_value(mycol, &c);
+    convert_value(mycol,1,str,5);
+    printf("%s",str);
+    //afficher_col(mycol);
+
+    //delete_column(&mycol);
 
     return 0;
 }
