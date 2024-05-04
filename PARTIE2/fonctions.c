@@ -33,9 +33,10 @@ int insert_value(COLUMN *col, void *value) {
         return 0; // Échec de l'allocation de mémoire
     }
 
-    if (value==NULL){
+    if (value== NULL ){
         col->data[col->TL] = NULL;
         col->TL++;
+        return 1;
     }
 
     switch (col->column_type) {
@@ -85,8 +86,9 @@ void convert_value(COLUMN *col, unsigned long long int i, char *str, int size) {
         return;
     }
 
-    if(col->data[col->TL]==NULL){
+    if(col->data[i]==NULL){
         printf("NULL");
+        return;
     }
     switch(col->column_type) {
         case INT:
@@ -116,8 +118,211 @@ void convert_value(COLUMN *col, unsigned long long int i, char *str, int size) {
 void afficher_col(COLUMN*col){
     char str[10];
     for(int i=0;i<col->TL;i++){
-        convert_value(col,i,str,10);
-        printf("[%d] %s ",i, str);
-        free(str);
+        if(col->data[i]== NULL){
+            printf("[%d] NULL\n",i);
+        }else {
+            convert_value(col, i, str, 10);
+            printf("[%d] %s \n", i, str);
+            }
     }
 }
+
+void nb_occurences(COLUMN* col, void* value) {
+
+    int occ = 0;
+
+    if (col == NULL || col->data == NULL || value == NULL) {
+        printf("La valeur recherchee n'existe pas dans la colonne.");
+        return;
+    }
+
+    for (unsigned long long int i = 0; i < col->TL; i++) {
+
+        if (col->data[i]== NULL) {
+            continue;
+        }
+
+            switch (col->column_type) {
+
+                case UINT:
+                    if (*(unsigned int *) (col->data[i]) == *(unsigned int *) value) {
+                        occ++;
+                    }
+                    break;
+                case INT:
+                    if (*(int*)col->data[i] == (int *) value) {
+                        occ++;
+                    }
+                    break;
+                case CHAR:
+                    if (*(char *) (col->data[i]) == *(char *) value) {
+                        occ++;
+                    }
+                    break;
+                case FLOAT:
+                    if (*(float *) (col->data[i]) == *(float *) value) {
+                        occ++;
+                    }
+                    break;
+                case DOUBLE:
+                    if (*(double *) (col->data[i]) == *(double *) value) {
+                        occ++;
+                    }
+                    break;
+                case STRING:
+                    if (strcmp((char *) (col->data[i]), (char *) value) == 0) {
+                        occ++;
+                    }
+                    break;
+            default:
+                printf("Erreur rencontrée");
+
+                    //case STRUCTURE:
+
+                    //break;
+            }
+        }
+        if (occ == 0) {
+            printf("La valeur recherchee n'existe pas dans la colonne.");
+        } else {
+            printf("La valeur recherchee apparait %d fois dans la colonne.", occ);
+        }
+
+    }
+
+void val_position(COLUMN*col, int position){
+
+    if (col == NULL || col->data == NULL ) {
+        printf("La colonne est vide.");
+        return;
+    }
+
+    if(position > col->TL){
+        printf("Taille de la colonne depassee.");
+    }
+
+    for(unsigned long long int i = 0; i < col->TL; i++){
+        char str[10];
+        if(i == position){
+            printf("La valeur a la position %d est : ",position);
+            convert_value(col,position,str,10);
+            printf("%s",str);
+            return;
+        }
+    }
+}
+
+
+void val_sup(COLUMN*col, void* valeur){
+    if (col == NULL || col->data == NULL ) {
+        printf("La colonne ou la valeur est NULL.\n");
+        return;
+    }
+
+    int count = 0;
+
+    for (unsigned long long int i = 0; i < col->TL; i++) {
+        if (col->data[i] == NULL) {
+            continue;
+        }
+
+        switch (col->column_type) {
+            case UINT:
+                if (*(unsigned int*)(col->data[i]) > (unsigned int*)valeur) {
+                    count ++;
+                }
+                break;
+            case INT:
+                if (*(int*)(col->data[i]) > (int*)valeur) {
+                    count ++;
+                }
+                break;
+            case CHAR:
+                if (*(char*)(col->data[i]) > (char*)valeur) {
+                    count ++;
+
+                }
+                break;
+            case FLOAT:
+                if (*(float*)(col->data[i]) > *(float*)valeur) {
+                    count ++;
+                }
+                break;
+            case DOUBLE:
+                if (*(double*)(col->data[i]) > *(double*)valeur) {
+                    count ++;
+                }
+                break;
+            case STRING:
+                printf("Impossible de comparer des chaines de caracteres avec cette fonction.\n");
+                break;
+            default:
+                break;
+        }
+    }
+    if (count == 0) {
+        printf("Il n'y a pas de valeurs superieures dans la colonne.");
+    } else {
+        printf("Il y a %d valeur(s) superieure(s) dans la colonne.", count);
+    }
+
+
+}
+
+void val_inf(COLUMN*col, void* valeur){
+    if (col == NULL || col->data == NULL ) {
+        printf("La colonne ou la valeur est NULL.\n");
+        return;
+    }
+
+    int count = 0;
+
+    for (unsigned long long int i = 0; i < col->TL; i++) {
+        if (col->data[i] == NULL) {
+            continue;
+        }
+
+        switch (col->column_type) {
+            case UINT:
+                if (*(unsigned int*)(col->data[i]) < (unsigned int*)valeur) {
+                    count ++;
+                }
+                break;
+            case INT:
+                if (*(int*)(col->data[i]) < (int*)valeur) {
+                    count ++;
+                }
+                break;
+            case CHAR:
+                if (*(char*)(col->data[i]) < (char*)valeur) {
+                    count ++;
+
+                }
+                break;
+            case FLOAT:
+                if (*(float*)(col->data[i]) < *(float*)valeur) {
+                    count ++;
+                }
+                break;
+            case DOUBLE:
+                if (*(double*)(col->data[i]) < *(double*)valeur) {
+                    count ++;
+                }
+                break;
+            case STRING:
+                printf("Impossible de comparer des chaines de caracteres avec cette fonction.\n");
+                break;
+            default:
+                break;
+        }
+    }
+    if (count == 0) {
+        printf("Il n'y a pas de valeurs inferieures dans la colonne.");
+    } else {
+        printf("Il y a %d valeur(s) inferieure(s) dans la colonne.", count);
+    }
+
+
+}
+
+
