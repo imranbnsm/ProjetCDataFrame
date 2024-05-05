@@ -39,5 +39,6 @@ void nb_occurences(COLUMN* col, void* value);
 void val_position(COLUMN*col, int position);
 void val_sup(COLUMN*col, void* valeur);
 void val_inf(COLUMN*col, void* valeur);
+void val_egale(COLUMN*col, void* valeur)
 
 #endif // PROJETC_COLONNES_H

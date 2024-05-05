@@ -325,4 +325,60 @@ void val_inf(COLUMN*col, void* valeur){
 
 }
 
+void val_egale(COLUMN*col, void* valeur){
+    if (col == NULL || col->data == NULL ) {
+        printf("La colonne ou la valeur est NULL.\n");
+        return;
+    }
+
+    int count = 0;
+
+    for (unsigned long long int i = 0; i < col->TL; i++) {
+        if (col->data[i] == NULL) {
+            continue;
+        }
+
+        switch (col->column_type) {
+            case UINT:
+                if (*(unsigned int*)(col->data[i]) == (unsigned int*)valeur) {
+                    count ++;
+                }
+                break;
+            case INT:
+                if (*(int*)(col->data[i]) == (int*)valeur) {
+                    count ++;
+                }
+                break;
+            case CHAR:
+                if (*(char*)(col->data[i]) == (char*)valeur) {
+                    count ++;
+
+                }
+                break;
+            case FLOAT:
+                if (*(float*)(col->data[i]) == *(float*)valeur) {
+                    count ++;
+                }
+                break;
+            case DOUBLE:
+                if (*(double*)(col->data[i]) == *(double*)valeur) {
+                    count ++;
+                }
+                break;
+            case STRING:
+                printf("Impossible de comparer des chaines de caracteres avec cette fonction.\n");
+                break;
+            default:
+                break;
+        }
+    }
+    if (count == 0) {
+        printf("Il n'y a pas de valeurs inferieures dans la colonne.");
+    } else {
+        printf("Il y a %d valeur(s) inferieure(s) dans la colonne.", count);
+    }
+
+
+}
+
 
