@@ -160,7 +160,6 @@ int remplissage_dur(COLONNE** Cdata){
     p=creer_colonne("Col1");
     Cdata[0]=p;
     p->TL=5;
-    //memcpy(p->Donnees, (int[]){1, 2, 3, 4, 5}, 5 * sizeof(int));
     p->Donnees= malloc(5*sizeof(int));
     p->Donnees[0] = 1;
     p->Donnees[1] = 2;

@@ -189,6 +189,30 @@ PARTIE1SIMPLE/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE1SIMPLE.dir\build.make CMakeFiles/PARTIE1SIMPLE.dir/PARTIE1SIMPLE/main.c.s
 .PHONY : PARTIE1SIMPLE/main.c.s
 
+PARTIE2/CdataFrame.obj: PARTIE2/CdataFrame.c.obj
+.PHONY : PARTIE2/CdataFrame.obj
+
+# target to build an object file
+PARTIE2/CdataFrame.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/CdataFrame.c.obj
+.PHONY : PARTIE2/CdataFrame.c.obj
+
+PARTIE2/CdataFrame.i: PARTIE2/CdataFrame.c.i
+.PHONY : PARTIE2/CdataFrame.i
+
+# target to preprocess a source file
+PARTIE2/CdataFrame.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/CdataFrame.c.i
+.PHONY : PARTIE2/CdataFrame.c.i
+
+PARTIE2/CdataFrame.s: PARTIE2/CdataFrame.c.s
+.PHONY : PARTIE2/CdataFrame.s
+
+# target to generate assembly for a file
+PARTIE2/CdataFrame.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/CdataFrame.c.s
+.PHONY : PARTIE2/CdataFrame.c.s
+
 PARTIE2/fonctions.obj: PARTIE2/fonctions.c.obj
 .PHONY : PARTIE2/fonctions.obj
 
@@ -212,6 +236,30 @@ PARTIE2/fonctions.s: PARTIE2/fonctions.c.s
 PARTIE2/fonctions.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/fonctions.c.s
 .PHONY : PARTIE2/fonctions.c.s
+
+PARTIE2/list.obj: PARTIE2/list.c.obj
+.PHONY : PARTIE2/list.obj
+
+# target to build an object file
+PARTIE2/list.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/list.c.obj
+.PHONY : PARTIE2/list.c.obj
+
+PARTIE2/list.i: PARTIE2/list.c.i
+.PHONY : PARTIE2/list.i
+
+# target to preprocess a source file
+PARTIE2/list.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/list.c.i
+.PHONY : PARTIE2/list.c.i
+
+PARTIE2/list.s: PARTIE2/list.c.s
+.PHONY : PARTIE2/list.s
+
+# target to generate assembly for a file
+PARTIE2/list.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/list.c.s
+.PHONY : PARTIE2/list.c.s
 
 PARTIE2/main2.obj: PARTIE2/main2.c.obj
 .PHONY : PARTIE2/main2.obj
@@ -253,9 +301,15 @@ help:
 	@echo ... PARTIE1SIMPLE/main.obj
 	@echo ... PARTIE1SIMPLE/main.i
 	@echo ... PARTIE1SIMPLE/main.s
+	@echo ... PARTIE2/CdataFrame.obj
+	@echo ... PARTIE2/CdataFrame.i
+	@echo ... PARTIE2/CdataFrame.s
 	@echo ... PARTIE2/fonctions.obj
 	@echo ... PARTIE2/fonctions.i
 	@echo ... PARTIE2/fonctions.s
+	@echo ... PARTIE2/list.obj
+	@echo ... PARTIE2/list.i
+	@echo ... PARTIE2/list.s
 	@echo ... PARTIE2/main2.obj
 	@echo ... PARTIE2/main2.i
 	@echo ... PARTIE2/main2.s

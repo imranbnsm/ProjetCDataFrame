@@ -1,6 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/PARTIE2.dir/PARTIE2/CdataFrame.c.obj"
+  "CMakeFiles/PARTIE2.dir/PARTIE2/CdataFrame.c.obj.d"
   "CMakeFiles/PARTIE2.dir/PARTIE2/fonctions.c.obj"
   "CMakeFiles/PARTIE2.dir/PARTIE2/fonctions.c.obj.d"
+  "CMakeFiles/PARTIE2.dir/PARTIE2/list.c.obj"
+  "CMakeFiles/PARTIE2.dir/PARTIE2/list.c.obj.d"
   "CMakeFiles/PARTIE2.dir/PARTIE2/main2.c.obj"
   "CMakeFiles/PARTIE2.dir/PARTIE2/main2.c.obj.d"
   "PARTIE2.exe"

@@ -134,10 +134,22 @@
 		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE1SIMPLE/main.c">
 			<Option target="PARTIE1SIMPLE"/>
 		</Unit>
+		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/CdataFrame.c">
+			<Option target="PARTIE2"/>
+		</Unit>
+		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/CdataFrame.h">
+			<Option target="PARTIE2"/>
+		</Unit>
 		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/fonctions.c">
 			<Option target="PARTIE2"/>
 		</Unit>
 		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/fonctions.h">
+			<Option target="PARTIE2"/>
+		</Unit>
+		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/list.c">
+			<Option target="PARTIE2"/>
+		</Unit>
+		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/list.h">
 			<Option target="PARTIE2"/>
 		</Unit>
 		<Unit filename="C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/main2.c">
