@@ -8,14 +8,14 @@ typedef struct lnode_ {
      COLUMN *data;
     struct lnode_ *prev;
     struct lnode_ *next;
-} lnode;
+}lnode;
 /**
 * Une liste
 */
-typedef struct list_ {
+typedef struct list_{
     lnode *head;
     lnode *tail;
-} list;
+}list;
 /**
 * création d'un noeud
 */

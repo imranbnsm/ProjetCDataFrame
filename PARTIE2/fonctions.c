@@ -340,7 +340,7 @@ void val_egale(COLUMN*col, void* valeur){
 
         switch (col->column_type) {
             case UINT:
-                if (*(unsigned int*)(col->data[i]) == (unsigned int*)valeur) {
+                if (*(unsigned int *) (col->data[i]) == (unsigned int*)valeur) {
                     count ++;
                 }
                 break;

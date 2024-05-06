@@ -41,4 +41,4 @@ void val_sup(COLUMN*col, void* valeur);
 void val_inf(COLUMN*col, void* valeur);
 void val_egale(COLUMN*col, void* valeur)
 
-#endif // PROJETC_COLONNES_H
+#endif //PROJETC_COLONNES_H

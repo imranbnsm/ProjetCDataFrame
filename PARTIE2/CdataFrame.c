@@ -3,6 +3,7 @@
 #include <string.h>
 #include "CdataFrame.h"
 #include "fonctions.h"
+#include "list.h"
 #define REALLOC_SIZE 256
 
 CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size){
@@ -133,6 +134,7 @@ void affichage_Cdata(CDATAFRAME *cdf){
         }
     }
 }
+
 
 
 
