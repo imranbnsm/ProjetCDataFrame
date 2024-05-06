@@ -2,10 +2,10 @@
 #define PROJETCDATAFRAME_CDATAFRAME_H
 #include "list.h"
 #include "fonctions.h"
-typedef list CDATAFRAME;
+typedef struct list CDATAFRAME;
 CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size);
 void delete_cdataframe(CDATAFRAME *cdf);
-void delete_Column(CDATAFRAME *cdf, char *col_name);
+void delete_Column(CDATAFRAME *cdf, const char *col_name);
 int get_cdataframe_cols_size(CDATAFRAME *cdf);
 CDATAFRAME *creer_Cdata_vide();
 void remplissage_Cdata(CDATAFRAME *cdf);

@@ -377,8 +377,6 @@ void val_egale(COLUMN*col, void* valeur){
     } else {
         printf("Il y a %d valeur(s) inferieure(s) dans la colonne.", count);
     }
-
-
 }
 
 

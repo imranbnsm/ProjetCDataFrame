@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "CdataFrame.h"
 #include "fonctions.h"
 #include "list.h"
@@ -13,7 +12,7 @@ CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size){
         printf("Saisir le titre de la colonne :\n");
         scanf(" %s",title);
         COLUMN *col= creer_colonne(cdftype[i],title);
-        lnode*noeud= lst_create_lnode(col);
+        LNODE *noeud= lst_create_lnode(col);
         if (i==0){
             lst_insert_head(Cdata,noeud);
         }
@@ -30,9 +29,9 @@ void delete_cdataframe(CDATAFRAME *cdf){
     lst_delete_list(cdf);
 }
 
-void delete_Column(CDATAFRAME *cdf, char *col_name){
+void delete_Column(CDATAFRAME *cdf, const char *col_name){
     char *title=cdf->head->data->titre;
-    lnode*noeud=cdf->head;
+    LNODE*noeud=cdf->head;
     while (*title!=*col_name) {
         noeud=get_next_node(cdf,noeud);
         title=noeud->data->titre;
@@ -42,7 +41,7 @@ void delete_Column(CDATAFRAME *cdf, char *col_name){
 
 int get_cdataframe_cols_size(CDATAFRAME *cdf){
     int size=0;
-    lnode*noeud= get_first_node(cdf);
+    LNODE*noeud= get_first_node(cdf);
     while (noeud!=NULL && noeud->next!=NULL){
         noeud= get_next_node(cdf,noeud);
         size++;
@@ -53,17 +52,19 @@ CDATAFRAME *creer_Cdata_vide(){
     int size;
     printf("Combien de colonnes ?\n");
     scanf("%d",&size);
-    ENUM_TYPE *type[size];
+    ENUM_TYPE *type[size],*list_type[]={(ENUM_TYPE *) NULLVAL, (ENUM_TYPE *) UINT, (ENUM_TYPE *) INT, (ENUM_TYPE *) CHAR, (ENUM_TYPE *) FLOAT, (ENUM_TYPE *) DOUBLE, (ENUM_TYPE *) STRING, (ENUM_TYPE *) STRUCTURE};
     for (int i=0;i<size;i++){
-        printf("Quel type pour la colonne %d\n",i);
-        scanf(" %d",type[i]);
+        int j;
+        printf("Quel type pour la colonne  %d ?\n",i);
+        scanf(" %d",&j);
+        type[i]=list_type[j];
     }
     CDATAFRAME *cdata= create_cdataframe((ENUM_TYPE *) type, size);
     return cdata;
 }
 void remplissage_Cdata(CDATAFRAME *cdf){
     int size= get_cdataframe_cols_size(cdf);
-    lnode*noeud= get_first_node(cdf);
+    LNODE*noeud= get_first_node(cdf);
     for (int i=0;i<size;i++){
         int nb_valeurs;
 
@@ -73,7 +74,7 @@ void remplissage_Cdata(CDATAFRAME *cdf){
         for (int j=0;j<nb_valeurs;j++) {
             void *val = NULL;
             printf("Valeur %d :\n", j + 1);
-            scanf("%p", &val);
+            scanf(" %p", &val);
             insert_value(noeud->data, val);
         }
         noeud= get_next_node(cdf,noeud);
@@ -81,10 +82,10 @@ void remplissage_Cdata(CDATAFRAME *cdf){
 }
 
 void remplissage_Cdata_dur(CDATAFRAME *cdf){
-    lnode *noeud= get_first_node(cdf);
+    LNODE *noeud= get_first_node(cdf);
     int size= get_cdataframe_cols_size(cdf);
     if(size<3){
-        lnode*nouv_noeud= lst_create_lnode(NULL);
+        LNODE*nouv_noeud= lst_create_lnode(NULL);
         lst_insert_tail(cdf,nouv_noeud);
     }
     noeud->data=creer_colonne(INT,"Col1");
@@ -116,9 +117,10 @@ void remplissage_Cdata_dur(CDATAFRAME *cdf){
     noeud->data->TL=5;
     noeud->data->data= malloc(5*sizeof(float));
     for (int i=0;i<5;i++){
-        int j=i+0.1;
-        void *p=&j;
-        insert_value(noeud->data, p);
+        float k=0,j=k+0.1;
+        k++;
+        void *p5=&j;
+        insert_value(noeud->data, p5);
     }
 }
 
@@ -127,7 +129,7 @@ void affichage_Cdata(CDATAFRAME *cdf){
     if (size==0){
         printf("Le Cdataframe est vide.");
     }else{
-        lnode *noeud= get_first_node(cdf);
+        LNODE *noeud= get_first_node(cdf);
         for (int i=1;i<size;i++){
             afficher_col(noeud->data);
             noeud= get_next_node(cdf,noeud);
