@@ -150,7 +150,7 @@ void nb_occurences(COLUMN* col, void* value) {
                     }
                     break;
                 case INT:
-                    if (*(int*)col->data[i] == (int *) value) {
+                    if (*(int*)col->data[i] == *(int *) value) {
                         occ++;
                     }
                     break;
@@ -228,17 +228,17 @@ void val_sup(COLUMN*col, void* valeur){
 
         switch (col->column_type) {
             case UINT:
-                if (*(unsigned int*)(col->data[i]) > (unsigned int*)valeur) {
+                if (*(unsigned int*)(col->data[i]) > *(unsigned int*)valeur) {
                     count ++;
                 }
                 break;
             case INT:
-                if (*(int*)(col->data[i]) > (int*)valeur) {
+                if (*(int*)(col->data[i]) > *(int*)valeur) {
                     count ++;
                 }
                 break;
             case CHAR:
-                if (*(char*)(col->data[i]) > (char*)valeur) {
+                if (*(char*)(col->data[i]) > *(char*)valeur) {
                     count ++;
 
                 }
@@ -284,17 +284,17 @@ void val_inf(COLUMN*col, void* valeur){
 
         switch (col->column_type) {
             case UINT:
-                if (*(unsigned int*)(col->data[i]) < (unsigned int*)valeur) {
+                if (*(unsigned int*)(col->data[i]) < *(unsigned int*)valeur) {
                     count ++;
                 }
                 break;
             case INT:
-                if (*(int*)(col->data[i]) < (int*)valeur) {
+                if (*(int*)(col->data[i]) < *(int*)valeur) {
                     count ++;
                 }
                 break;
             case CHAR:
-                if (*(char*)(col->data[i]) < (char*)valeur) {
+                if (*(char*)(col->data[i]) < *(char*)valeur) {
                     count ++;
 
                 }
@@ -340,17 +340,17 @@ void val_egale(COLUMN*col, void* valeur){
 
         switch (col->column_type) {
             case UINT:
-                if (*(unsigned int *) (col->data[i]) == (unsigned int*)valeur) {
+                if (*(unsigned int *) (col->data[i]) == *(unsigned int*)valeur) {
                     count ++;
                 }
                 break;
             case INT:
-                if (*(int*)(col->data[i]) == (int*)valeur) {
+                if (*(int*)(col->data[i]) == *(int*)valeur) {
                     count ++;
                 }
                 break;
             case CHAR:
-                if (*(char*)(col->data[i]) == (char*)valeur) {
+                if (*(char*)(col->data[i]) == *(char*)valeur) {
                     count ++;
 
                 }

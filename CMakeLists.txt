@@ -4,15 +4,9 @@ project(ProjetCDataFrame C)
 set(CMAKE_C_STANDARD 11)
 
 # Ajoutez ici les dossiers où se trouvent vos fichiers sources
-include_directories(PARTIE1SIMPLE)
 include_directories(PARTIE2)
 
 # Ajoutez tous vos fichiers sources ici
-add_executable(PARTIE1SIMPLE
-        PARTIE1SIMPLE/column.c
-        PARTIE1SIMPLE/column.h
-        PARTIE1SIMPLE/cdataframe.h
-        PARTIE1SIMPLE/main.c)
 add_executable(PARTIE2
         PARTIE2/fonctions.c
         PARTIE2/fonctions.h
@@ -21,4 +15,5 @@ add_executable(PARTIE2
         PARTIE2/CdataFrame.h
         PARTIE2/CdataFrame.c
         PARTIE2/list.h
-        PARTIE2/list.c)
+        PARTIE2/list.c
+)

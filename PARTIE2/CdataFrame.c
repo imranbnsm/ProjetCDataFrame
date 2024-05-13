@@ -11,15 +11,15 @@ CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size){
         char title[100];
         printf("Saisir le titre de la colonne %d:\n",i+1);
         scanf(" %s",title);
-        COLUMN *col= creer_colonne(cdftype[i],title);
+        int l;
+        printf("Quel type de colonne %d ?",i+1);
+        scanf(" %d",&l);
+        COLUMN *col= creer_colonne(cdftype[l],title);
         LNODE *noeud= lst_create_lnode(col);
         if (i==0){
             lst_insert_head(Cdata,noeud);
-        }
-        else if(i==size-1){
-            lst_insert_after(Cdata,noeud, get_first_node(Cdata));
         }else{
-            lst_insert_tail(Cdata,noeud);
+            lst_insert_after(Cdata,noeud, get_last_node(Cdata));
         }
     }
     return Cdata;
@@ -48,36 +48,60 @@ int get_cdataframe_cols_size(CDATAFRAME *cdf){
     }
     return size;
 }
-CDATAFRAME *creer_Cdata_vide(){
-    int size;
-    printf("Combien de colonnes ?\n");
-    scanf("%d",&size);
-    ENUM_TYPE *type[size],*list_type[]={(ENUM_TYPE *) NULLVAL, (ENUM_TYPE *) UINT, (ENUM_TYPE *) INT, (ENUM_TYPE *) CHAR, (ENUM_TYPE *) FLOAT, (ENUM_TYPE *) DOUBLE, (ENUM_TYPE *) STRING, (ENUM_TYPE *) STRUCTURE};
-    for (int i=0;i<size;i++){
-        int j;
-        printf("Quel type pour la colonne  %d ?\n",i);
-        scanf(" %d",&j);
-        type[i]=list_type[j];
-    }
-    CDATAFRAME *cdata= create_cdataframe((ENUM_TYPE *) type, size);
-    return cdata;
-}
+
 void remplissage_Cdata(CDATAFRAME *cdf){
-    int size= get_cdataframe_cols_size(cdf);
+    int size = get_cdataframe_cols_size(cdf);
     LNODE*noeud= get_first_node(cdf);
     for (int i=0;i<size;i++){
         int nb_valeurs;
-
         printf("Nombre de valeurs dans cette colonne :\n");
-        scanf("%d",&nb_valeurs);
-
+        scanf(" %d",&nb_valeurs);
         for (int j=0;j<nb_valeurs;j++) {
-            void *val = NULL;
-            printf("Valeur %d :\n", j + 1);
-            scanf(" %p", &val);
-            insert_value(noeud->data, val);
+            switch (noeud->data->column_type) {
+                case INT:
+                    int val1=0;
+                    printf("Saisir la valeur %d :\n",i);
+                    scanf(" %d",&val1);
+                    insert_value(noeud->data,&val1);
+                    break;
+                case CHAR:
+                    char val2;
+                    printf("Saisir la valeur %d :\n",i);
+                    scanf(" %c",&val2);
+                    insert_value(noeud->data,&val2);
+                    break;
+                case UINT:
+                    unsigned int val3=0;
+                    printf("Saisir la valeur %d :\n",i);
+                    scanf(" %u",&val3);
+                    insert_value(noeud->data,&val3);
+                    break;
+                case FLOAT:
+                    float val4=0;
+                    printf("Saisir la valeur %d :\n",i);
+                    scanf(" %f",&val4);
+                    insert_value(noeud->data,&val4);
+                    break;
+                case DOUBLE:
+                    double val5=0;
+                    printf("Saisir la valeur %d :\n",i);
+                    scanf(" %lf",&val5);
+                    insert_value(noeud->data,&val5);
+                    break;
+                case STRING:
+                    char val6[100];
+                    printf("Saisir la valeur %d :\n",i);
+                    scanf(" %s",&val6);
+                    insert_value(noeud->data,&val6);
+                    break;
+                case STRUCTURE:
+                    //col->data[col->TL] = (struct *) malloc (sizeof(struct));
+                    //*((struct*)col->data[col->TL])= *((struct*)value);
+                    break;
+                case NULLVAL:
+                    break;
+            }
         }
-        noeud= get_next_node(cdf,noeud);
     }
 }
 
