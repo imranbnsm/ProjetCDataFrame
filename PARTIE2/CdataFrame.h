@@ -12,7 +12,8 @@ CDATAFRAME *creer_Cdata_vide();
 void remplissage_Cdata(CDATAFRAME *cdf);
 void remplissage_Cdata_dur(CDATAFRAME *cdf);
 void affichage_Cdata(CDATAFRAME *cdf);
-
+void affichage_partiel_lignes(CDATAFRAME *cdf);
+void affichage_partiel_colonnes(CDATAFRAME *cdf);
 
 
 

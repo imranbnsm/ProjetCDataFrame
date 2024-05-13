@@ -60,8 +60,12 @@ int insert_value(COLUMN *col, void *value) {
             *((double *) col->data[col->TL]) = *((double *) value);
             break;
         case STRING:
-            *((char **) col->data[col->TL]) = *((char **) value);
-            break;
+        {unsigned long int len=0;
+            len=strlen(value)+1;}
+            char *tab= (char*) malloc(len * sizeof (char));
+            strcpy(tab,value);
+            *((char **) col->data[col->TL]) = *((char **) tab);
+            break;}
         case STRUCTURE:
             //col->data[col->TL] = (struct *) malloc (sizeof(struct));
             //*((struct*)col->data[col->TL])= *((struct*)value);
@@ -117,6 +121,7 @@ void convert_value(COLUMN *col, unsigned long long int i, char *str, int size) {
 
 void afficher_col(COLUMN*col){
     char str[10];
+    printf("%s\n",col->titre);
     for(int i=0;i<col->TL;i++){
         if(col->data[i]== NULL){
             printf("[%d] NULL\n",i);
