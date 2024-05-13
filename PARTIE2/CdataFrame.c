@@ -9,7 +9,7 @@ CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size){
     CDATAFRAME *Cdata=lst_create_list();
     for (int i=0;i<size;i++){
         char title[100];
-        printf("Saisir le titre de la colonne :\n");
+        printf("Saisir le titre de la colonne %d:\n",i+1);
         scanf(" %s",title);
         COLUMN *col= creer_colonne(cdftype[i],title);
         LNODE *noeud= lst_create_lnode(col);
@@ -139,4 +139,33 @@ void affichage_Cdata(CDATAFRAME *cdf){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*void ajouter_ligne(CDATAFRAME*cdf){
+    int size= get_cdataframe_cols_size(cdf);
+    for(int i = 0; i<size; i++){
+        printf("Quelle valeur voulez vous insérer : ?\n");
+        scanf("")
+        insert_value(cdf);
+        cdf = get_next_node(cdf,get_first_node(cdf));
+    }
+}*/
 

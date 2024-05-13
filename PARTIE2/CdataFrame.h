@@ -2,6 +2,7 @@
 #define PROJETCDATAFRAME_CDATAFRAME_H
 #include "list.h"
 #include "fonctions.h"
+
 typedef struct list CDATAFRAME;
 CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size);
 void delete_cdataframe(CDATAFRAME *cdf);
@@ -11,5 +12,12 @@ CDATAFRAME *creer_Cdata_vide();
 void remplissage_Cdata(CDATAFRAME *cdf);
 void remplissage_Cdata_dur(CDATAFRAME *cdf);
 void affichage_Cdata(CDATAFRAME *cdf);
+
+
+
+
+
+
+void ajouter_ligne(CDATAFRAME*cdf);
 
 #endif //PROJETCDATAFRAME_CDATAFRAME_H
