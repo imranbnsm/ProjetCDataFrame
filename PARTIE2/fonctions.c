@@ -42,29 +42,28 @@ int insert_value(COLUMN *col, void *value) {
     switch (col->column_type) {
         case INT:
             col->data[col->TL] = malloc(sizeof(int));
-            if (col->data[col->TL] == NULL) return 0; // Échec de l'allocation de mémoire
             *((int *) col->data[col->TL]) = *((int *) value);
             break;
         case CHAR:
             col->data[col->TL] = malloc(sizeof(char));
-            if (col->data[col->TL] == NULL) return 0; // Échec de l'allocation de mémoire
             *((char *) col->data[col->TL]) = *((char *) value);
             break;
         case UINT:
+            col->data[col->TL] = malloc(sizeof(unsigned int));
             *((unsigned int *) col->data[col->TL]) = *((unsigned int *) value);
             break;
         case FLOAT:
+            col->data[col->TL] = malloc(sizeof(float));
             *((float *) col->data[col->TL]) = *((float *) value);
             break;
         case DOUBLE:
+            col->data[col->TL] = malloc(sizeof(double));
             *((double *) col->data[col->TL]) = *((double *) value);
             break;
         case STRING:
-        {unsigned long int len=0;
-            len=strlen(value)+1;}
-            char *tab= (char*) malloc(len * sizeof (char));
-            strcpy(tab,value);
-            *((char **) col->data[col->TL]) = *((char **) tab);
+        {
+            col->data[col->TL] = malloc(strlen((char *)value) + 1); // Allouer de la mémoire pour la chaîne de caractères + '\0'
+            strcpy((char *)col->data[col->TL], (char *)value);
             break;}
         case STRUCTURE:
             //col->data[col->TL] = (struct *) malloc (sizeof(struct));

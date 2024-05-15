@@ -22,7 +22,8 @@ int main() {
     ENUM_TYPE list_type[]={(ENUM_TYPE ) NULLVAL, (ENUM_TYPE ) UINT, (ENUM_TYPE ) INT, (ENUM_TYPE ) CHAR, (ENUM_TYPE ) FLOAT, (ENUM_TYPE ) DOUBLE, (ENUM_TYPE ) STRING, (ENUM_TYPE ) STRUCTURE};
     CDATAFRAME *cdata= create_cdataframe(list_type, 2);
     remplissage_Cdata(cdata);
-    //afficher_col(cdata->head->data);
-    affichage_partiel_colonnes(cdata);
+    affichage_Cdata(cdata);
+    ajouter_ligne(cdata);
+    affichage_Cdata(cdata);
     return 0;
 }

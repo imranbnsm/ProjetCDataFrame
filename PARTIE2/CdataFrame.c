@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "CdataFrame.h"
 #include "fonctions.h"
 #include "list.h"
@@ -93,7 +94,6 @@ void remplissage_Cdata(CDATAFRAME *cdf){
                     printf("Saisir la valeur %d :\n",j+1);
                     scanf(" %s",val6);
                     insert_value(noeud->data,val6);
-                    printf("%s",val6);
                     break;}
                 /*case STRUCTURE:
                     //col->data[col->TL] = (struct *) malloc (sizeof(struct));
@@ -203,31 +203,100 @@ void affichage_partiel_colonnes(CDATAFRAME *cdf){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*void ajouter_ligne(CDATAFRAME*cdf){
+void ajouter_ligne(CDATAFRAME*cdf){
     int size= get_cdataframe_cols_size(cdf);
+    LNODE* noeud = get_first_node(cdf);
     for(int i = 0; i<size; i++){
-        printf("Quelle valeur voulez vous insérer : ?\n");
-        scanf("")
-        insert_value(cdf);
-        cdf = get_next_node(cdf,get_first_node(cdf));
+        printf("Ajout de ligne dans la colonne '%s'\n",noeud->data->titre);
+        switch (noeud->data->column_type) {
+            case INT:
+            {int val1=0;
+                printf("Saisir la valeur :\n");
+                scanf(" %d",&val1);
+                insert_value(noeud->data,&val1);
+                break;}
+            case CHAR:
+            {char val2;
+                printf("Saisir la valeur :\n");
+                scanf(" %c",&val2);
+                insert_value(noeud->data,&val2);
+                break;}
+            case UINT:
+            {unsigned int val3=0;
+                printf("Saisir la valeur :\n");
+                scanf(" %u",&val3);
+                insert_value(noeud->data,&val3);
+                break;}
+            case FLOAT:
+            {float val4=0;
+                printf("Saisir la valeur :\n");
+                scanf(" %f",&val4);
+                insert_value(noeud->data,&val4);
+                break;}
+            case DOUBLE:
+            {double val5=0;
+                printf("Saisir la valeur :\n");
+                scanf(" %lf",&val5);
+                insert_value(noeud->data,&val5);
+                break;}
+            case STRING:
+            {char val6[100];
+                printf("Saisir la valeur :\n");
+                scanf(" %s",val6);
+                insert_value(noeud->data,val6);
+                break;}
+                /*case STRUCTURE:
+                    //col->data[col->TL] = (struct *) malloc (sizeof(struct));
+                    //*((struct*)col->data[col->TL])= *((struct*)value);
+                    break;*/
+            case NULLVAL:
+                break;
+        }
+        noeud = get_next_node(cdf,noeud);
     }
-}*/
+}
 
+void supprimer_ligne(CDATAFRAME *cdf){
+    int ligne = 0;
+    printf("Quelle ligne voulez vous supprimer: ?\n");
+    scanf("%d",&ligne);
+    int size= get_cdataframe_cols_size(cdf);
+    LNODE* noeud = get_first_node(cdf);
+    for(int i = 0; i<size; i++){
+        free(noeud->data->data[ligne]);
+            }
+    }
+
+
+void ajouter_colonne(CDATAFRAME *cdf, enum enum_type TYPE){
+    char titre[100];
+    LNODE* noeud = get_last_node(cdf);
+    printf("Quel nom voulez-vous donner à votre colonne: ?\n");
+    scanf("%s",titre);
+    COLUMN*c = creer_colonne(TYPE,titre);
+    noeud->next = c;
+}
+
+
+void renommer_colonne(CDATAFRAME *cdf){
+    char titre[100];
+    char titre2[100];
+    printf("Quel est le nom de la colonne à modifier: ?\n");
+    scanf("%s",titre);
+    printf("Quel nouveau nom voulez-vous donner à votre colonne: ?\n");
+    scanf("%s",titre2);
+    char *title=cdf->head->data->titre;
+    LNODE* noeud = cdf->head;
+    while (*title!=*titre) {
+        noeud=get_next_node(cdf,noeud);
+        title=noeud->data->titre;
+    }
+    noeud->data->titre = titre2;
+}
+void afficher_noms_colonnes(CDATAFRAME *cdf){
+    int size= get_cdataframe_cols_size(cdf);
+    LNODE* noeud = get_first_node(cdf);
+    for(int i = 0; i<size; i++){
+        printf("%s",noeud->data->titre);
+    }
+}

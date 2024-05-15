@@ -14,8 +14,13 @@ void remplissage_Cdata_dur(CDATAFRAME *cdf);
 void affichage_Cdata(CDATAFRAME *cdf);
 void affichage_partiel_lignes(CDATAFRAME *cdf);
 void affichage_partiel_colonnes(CDATAFRAME *cdf);
-
-
+void supprimer_ligne(CDATAFRAME *cdf);
+void ajouter_colonne(CDATAFRAME *cdf, enum enum_type TYPE);
+void supprimer_colonne(CDATAFRAME *cdf);
+void renommer_colonne(CDATAFRAME *cdf);
+void recherche_valeur(CDATAFRAME*cdf);
+void acces_remplacer_valeur(CDATAFRAME *cdf, int n_lig, int n_col);
+void afficher_noms_colonnes(CDATAFRAME *cdf);
 
 
 
