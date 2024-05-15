@@ -20,10 +20,20 @@ int main() {
     printf("Combien de colonnes ?\n");
     scanf("%d",&size);*/
     ENUM_TYPE list_type[]={(ENUM_TYPE ) NULLVAL, (ENUM_TYPE ) UINT, (ENUM_TYPE ) INT, (ENUM_TYPE ) CHAR, (ENUM_TYPE ) FLOAT, (ENUM_TYPE ) DOUBLE, (ENUM_TYPE ) STRING, (ENUM_TYPE ) STRUCTURE};
-    CDATAFRAME *cdata= create_cdataframe(list_type, 2);
-    remplissage_Cdata(cdata);
+    //CDATAFRAME *cdata= create_cdataframe(list_type, 2);
+    CDATAFRAME *cdata= remplissage_Cdata_dur();
+    //affichage_Cdata(cdata);
+    //ajouter_ligne(cdata);
+    //int valeur;
+    //printf("Valeur ?\n");
+    //scanf("%d",&valeur);
+    ajouter_colonne(cdata,list_type);
     affichage_Cdata(cdata);
-    ajouter_ligne(cdata);
-    affichage_Cdata(cdata);
+    //recherche_valeur(cdata, &valeur);
+    //afficher_nb_col(cdata);
+    //afficher_nb_lignes(cdata);
+    //nb_cellule_egale(cdata,&valeur);
+    //nb_cellule_inf(cdata,&valeur);
+    //nb_cellule_sup(cdata,&valeur);
     return 0;
 }

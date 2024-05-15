@@ -107,47 +107,30 @@ void remplissage_Cdata(CDATAFRAME *cdf){
     }
 }
 
-void remplissage_Cdata_dur(CDATAFRAME *cdf){
-    LNODE *noeud= get_first_node(cdf);
-    int size= get_cdataframe_cols_size(cdf);
-    if(size<3){
-        LNODE*nouv_noeud= lst_create_lnode(NULL);
-        lst_insert_tail(cdf,nouv_noeud);
-    }
-    noeud->data=creer_colonne(INT,"Col1");
-    noeud->data->TL=5;
-    noeud->data->data= malloc(5*sizeof(int));
+CDATAFRAME* remplissage_Cdata_dur(){
+    CDATAFRAME* cdf = lst_create_list();
+    COLUMN* col = creer_colonne(INT,"Col1");
+    col->data=malloc(5*sizeof(int));
     for (int i=0;i<5;i++){
-        void *p=&i;
-        insert_value(noeud->data, p);
+        insert_value(col, &i);
     }
-    noeud->data=creer_colonne(CHAR,"Col2");
-    noeud->data->TL=5;
-    noeud->data->data= malloc(5*sizeof(char));
+    LNODE* noeud= lst_create_lnode(col);
+    lst_insert_head(cdf,noeud);
+    col= creer_colonne(CHAR,"Col2");
+    col->data= malloc(5*sizeof(char));
     char str='a';
-    void *p= & str;
-    insert_value(noeud->data, p);
+    insert_value(col, &str);
     str='b';
-    void *p1 = &str;
-    insert_value(noeud->data, p1);
+    insert_value(col, &str);
     str='c';
-    void *p2 = &str;
-    insert_value(noeud->data, p2);
+    insert_value(col, &str);
     str='d';
-    void *p3 = &str;
-    insert_value(noeud->data, p3);
+    insert_value(col, &str);
     str='e';
-    void *p4 = &str;
-    insert_value(noeud->data, p4);
-    noeud->data=creer_colonne(INT,"Col3");
-    noeud->data->TL=5;
-    noeud->data->data= malloc(5*sizeof(float));
-    for (int i=0;i<5;i++){
-        float k=0,j=k+0.1;
-        k++;
-        void *p5=&j;
-        insert_value(noeud->data, p5);
-    }
+    insert_value(col, &str);
+    LNODE* noeud1 = lst_create_lnode(col);
+    lst_insert_after(cdf,noeud1,noeud);
+    return cdf;
 }
 
 void affichage_Cdata(CDATAFRAME *cdf){
@@ -268,22 +251,73 @@ void supprimer_ligne(CDATAFRAME *cdf){
     }
 
 
-void ajouter_colonne(CDATAFRAME *cdf, enum enum_type TYPE){
+void ajouter_colonne(CDATAFRAME *cdf, ENUM_TYPE* list_type){
     char titre[100];
-    LNODE* noeud = get_last_node(cdf);
-    printf("Quel nom voulez-vous donner à votre colonne: ?\n");
-    scanf("%s",titre);
-    COLUMN*c = creer_colonne(TYPE,titre);
-    noeud->next = c;
+    LNODE* tail = get_last_node(cdf);
+    printf("Quel nom voulez-vous donner a votre colonne: ?\n");
+    scanf(" %s",titre);
+    int l;
+    printf("Quel type de colonne: ?\n");
+    scanf(" %d",&l);
+    COLUMN* c = creer_colonne(list_type[l],titre);
+    int nb_valeur=tail->data->TL;
+    for (int j=0;j<nb_valeur;j++) {
+        switch (c->column_type) {
+            case INT:
+            {int val1=0;
+                printf("Saisir la valeur %d :\n",j+1);
+                scanf(" %d",&val1);
+                insert_value(c ,&val1);
+                break;}
+            case CHAR:
+            {char val2;
+                printf("Saisir la valeur %d :\n",j+1);
+                scanf(" %c",&val2);
+                insert_value(c,&val2);
+                break;}
+            case UINT:
+            {unsigned int val3=0;
+                printf("Saisir la valeur %d :\n",j+1);
+                scanf(" %u",&val3);
+                insert_value(c,&val3);
+                break;}
+            case FLOAT:
+            {float val4=0;
+                printf("Saisir la valeur %d :\n",j+1);
+                scanf(" %f",&val4);
+                insert_value(c,&val4);
+                break;}
+            case DOUBLE:
+            {double val5=0;
+                printf("Saisir la valeur %d :\n",j+1);
+                scanf(" %lf",&val5);
+                insert_value(c,&val5);
+                break;}
+            case STRING:
+            {char val6[100];
+                printf("Saisir la valeur %d :\n",j+1);
+                scanf(" %s",val6);
+                insert_value(c,val6);
+                break;}
+                /*case STRUCTURE:
+                    //col->data[col->TL] = (struct *) malloc (sizeof(struct));
+                    //*((struct*)col->data[col->TL])= *((struct*)value);
+                    break;*/
+            case NULLVAL:
+                break;
+        }
+    }
+    LNODE* noeud= lst_create_lnode(c);
+    lst_insert_after(cdf,noeud,tail);
 }
 
 
 void renommer_colonne(CDATAFRAME *cdf){
     char titre[100];
     char titre2[100];
-    printf("Quel est le nom de la colonne à modifier: ?\n");
+    printf("Quel est le nom de la colonne a modifier: ?\n");
     scanf("%s",titre);
-    printf("Quel nouveau nom voulez-vous donner à votre colonne: ?\n");
+    printf("Quel nouveau nom voulez-vous donner a votre colonne: ?\n");
     scanf("%s",titre2);
     char *title=cdf->head->data->titre;
     LNODE* noeud = cdf->head;
@@ -293,6 +327,24 @@ void renommer_colonne(CDATAFRAME *cdf){
     }
     noeud->data->titre = titre2;
 }
+
+void recherche_valeur(CDATAFRAME * cdf,void* value){
+    int presence = -1, size= get_cdataframe_cols_size(cdf);
+    LNODE* noeud= get_first_node(cdf);
+    for(int i = 0; i < size; i++){
+        int occ = nb_occurences(noeud->data,value);
+        if (occ > 0){
+            presence = 1;
+            break;
+        }
+    }
+    if(presence == -1){
+        printf("La valeur est absente du CDataframe.\n");
+    }else{
+        printf("La valeur est presente dans le CDataframe.\n");
+    }
+}
+
 void afficher_noms_colonnes(CDATAFRAME *cdf){
     int size= get_cdataframe_cols_size(cdf);
     LNODE* noeud = get_first_node(cdf);
@@ -300,3 +352,64 @@ void afficher_noms_colonnes(CDATAFRAME *cdf){
         printf("%s",noeud->data->titre);
     }
 }
+
+void afficher_nb_lignes(CDATAFRAME* cdf){
+    LNODE* noeud= get_first_node(cdf);
+    if (noeud==NULL){
+        printf("Le Cdataframe est vide.\n");
+    }else {
+        printf("Il y a %d lignes dans le Cdataframe.\n",noeud->data->TL);
+    }
+}
+
+void afficher_nb_col(CDATAFRAME* cdf){
+    int size= get_cdataframe_cols_size(cdf);
+    if (size==0){
+        printf("Le Cdataframe est vide.\n");
+    }else {
+        printf("Il y a %d colonnes dans le Cdataframe.\n",size);
+    }
+}
+
+void nb_cellule_egale(CDATAFRAME* cdf, void* value){
+    int size= get_cdataframe_cols_size(cdf),occ=0;
+    LNODE* noeud= get_first_node(cdf);
+    for (int i=0;i<size;i++){
+        occ+=val_egale(noeud->data,value,0);
+        noeud= get_next_node(cdf,noeud);
+    }
+    if (occ == 0) {
+        printf("Il n'y a pas de valeurs egales dans le Cdataframe.\n");
+    } else {
+        printf("Au total, il y a %d valeur(s) egale(s) dans le Cdataframe.\n", occ);
+    }
+}
+
+void nb_cellule_sup(CDATAFRAME* cdf, void* value){
+    int size= get_cdataframe_cols_size(cdf),occ=0;
+    LNODE* noeud= get_first_node(cdf);
+    for (int i=0;i<size;i++){
+        occ+=val_sup(noeud->data,value,0);
+        noeud= get_next_node(cdf,noeud);
+    }
+    if (occ == 0) {
+        printf("Il n'y a pas de valeurs superieurs dans le Cdataframe.\n");
+    } else {
+        printf("Au total, il y a %d valeur(s) superieur(s) dans le Cdataframe.\n", occ);
+    }
+}
+
+void nb_cellule_inf(CDATAFRAME* cdf, void* value){
+    int size= get_cdataframe_cols_size(cdf),occ=0;
+    LNODE* noeud= get_first_node(cdf);
+    for (int i=0;i<size;i++){
+        occ+=val_inf(noeud->data,value,0);
+        noeud= get_next_node(cdf,noeud);
+    }
+    if (occ == 0) {
+        printf("Il n'y a pas de valeurs inferieures dans le Cdataframe.\n");
+    } else {
+        printf("Au total, il y a %d valeur(s) inferieur(s) dans le Cdataframe.\n", occ);
+    }
+}
+

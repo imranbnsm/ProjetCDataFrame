@@ -35,10 +35,10 @@ int insert_value(COLUMN *col, void *value);
 void delete_column(COLUMN **col);
 void convert_value(COLUMN *col, unsigned long long int i, char *str, int size);
 void afficher_col(COLUMN*col);
-void nb_occurences(COLUMN* col, void* value);
+int nb_occurences(COLUMN* col, void* value);
 void val_position(COLUMN*col, int position);
-void val_sup(COLUMN*col, void* valeur);
-void val_inf(COLUMN*col, void* valeur);
-void val_egale(COLUMN*col, void* valeur);
+int val_sup(COLUMN*col, void* valeur, int bool);
+int val_inf(COLUMN*col, void* valeur, int bool);
+int val_egale(COLUMN*col, void* valeur, int bool);
 
 #endif //PROJETC_COLONNES_H

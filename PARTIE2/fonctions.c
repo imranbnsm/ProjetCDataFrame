@@ -131,13 +131,13 @@ void afficher_col(COLUMN*col){
     }
 }
 
-void nb_occurences(COLUMN* col, void* value) {
+int nb_occurences(COLUMN* col, void* value) {
 
     int occ = 0;
 
     if (col == NULL || col->data == NULL || value == NULL) {
         printf("La valeur recherchee n'existe pas dans la colonne.");
-        return;
+        return 0;
     }
 
     for (unsigned long long int i = 0; i < col->TL; i++) {
@@ -187,10 +187,11 @@ void nb_occurences(COLUMN* col, void* value) {
             }
         }
         if (occ == 0) {
-            printf("La valeur recherchee n'existe pas dans la colonne.");
+            printf("La valeur recherchee n'existe pas dans la colonne.\n");
         } else {
-            printf("La valeur recherchee apparait %d fois dans la colonne.", occ);
+            printf("La valeur recherchee apparait %d fois dans la colonne.\n", occ);
         }
+        return occ;
 
     }
 
@@ -217,10 +218,10 @@ void val_position(COLUMN*col, int position){
 }
 
 
-void val_sup(COLUMN*col, void* valeur){
+int val_sup(COLUMN*col, void* valeur, int bool){
     if (col == NULL || col->data == NULL ) {
         printf("La colonne ou la valeur est NULL.\n");
-        return;
+        return 0;
     }
 
     int count = 0;
@@ -264,19 +265,20 @@ void val_sup(COLUMN*col, void* valeur){
                 break;
         }
     }
-    if (count == 0) {
-        printf("Il n'y a pas de valeurs superieures dans la colonne.");
-    } else {
-        printf("Il y a %d valeur(s) superieure(s) dans la colonne.", count);
+    if (count == 0 && bool==1) {
+        printf("Il n'y a pas de valeurs superieures dans la colonne.\n");
+    } else if (bool==1){
+        printf("Il y a %d valeur(s) superieure(s) dans la colonne.\n", count);
     }
+    return count;
 
 
 }
 
-void val_inf(COLUMN*col, void* valeur){
+int val_inf(COLUMN*col, void* valeur, int bool){
     if (col == NULL || col->data == NULL ) {
         printf("La colonne ou la valeur est NULL.\n");
-        return;
+        return 0;
     }
 
     int count = 0;
@@ -320,19 +322,18 @@ void val_inf(COLUMN*col, void* valeur){
                 break;
         }
     }
-    if (count == 0) {
-        printf("Il n'y a pas de valeurs inferieures dans la colonne.");
-    } else {
-        printf("Il y a %d valeur(s) inferieure(s) dans la colonne.", count);
+    if (count == 0 && bool==1) {
+        printf("Il n'y a pas de valeurs inferieures dans la colonne.\n");
+    } else if (bool==1){
+        printf("Il y a %d valeur(s) inferieure(s) dans la colonne.\n", count);
     }
-
-
+    return count;
 }
 
-void val_egale(COLUMN*col, void* valeur){
+int val_egale(COLUMN*col, void* valeur, int bool){
     if (col == NULL || col->data == NULL ) {
         printf("La colonne ou la valeur est NULL.\n");
-        return;
+        return 0;
     }
 
     int count = 0;
@@ -370,17 +371,18 @@ void val_egale(COLUMN*col, void* valeur){
                 }
                 break;
             case STRING:
-                printf("Impossible de comparer des chaines de caracteres avec cette fonction.\n");
+                printf("Impossible de comparer des chaines de caracteres avec cette fonctio.\n");
                 break;
             default:
                 break;
         }
     }
-    if (count == 0) {
-        printf("Il n'y a pas de valeurs inferieures dans la colonne.");
-    } else {
-        printf("Il y a %d valeur(s) inferieure(s) dans la colonne.", count);
+    if (count == 0 && bool==1) {
+        printf("Il n'y a pas de valeurs egales dans la colonne.\n");
+    } else if (bool==1){
+        printf("Il y a %d valeur(s) egale(s) dans la colonne.\n", count);
     }
+    return count;
 }
 
 
