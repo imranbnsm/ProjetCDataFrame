@@ -25,10 +25,6 @@ void afficher_nb_col(CDATAFRAME* cdf);
 void nb_cellule_egale(CDATAFRAME* cdf, void* value);
 void nb_cellule_sup(CDATAFRAME* cdf, void* value);
 void nb_cellule_inf(CDATAFRAME* cdf, void* value);
-
-
-
-
 void ajouter_ligne(CDATAFRAME*cdf);
 
 #endif //PROJETCDATAFRAME_CDATAFRAME_H
