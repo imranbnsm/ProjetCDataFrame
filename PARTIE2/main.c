@@ -37,7 +37,7 @@ int main() {
                 }
             }
             valid=0;
-            cdata = create_cdataframe(list_type, size);
+            cdata = creer_cdataframe(list_type, size);
             remplissage_Cdata(cdata);
         } else if(choix==2){
             cdata = remplissage_Cdata_dur();
@@ -74,17 +74,18 @@ int main() {
                 }
                 valid=0;
                 if (choix3==1){
-                    delete_cdataframe(cdata);
+                    supprimer_cdataframe(cdata);
+                    break;
                 } else if(choix3==2){
                     char title[100];
                     LNODE *noeud=cdata->head;
-                    for (int i=0;i<get_cdataframe_cols_size(cdata);i++){
+                    for (int i=0;i<avoir_cdataframe_nb_col(cdata);i++){
                         printf("[%d] %s\n",i,noeud->data->titre);
                         noeud = get_next_node(cdata,noeud);
                     }
                     printf("Quelle colonne voulez-vous supprimer (donnez le titre): ?\n");
                     fgets(title,100,stdin);
-                    delete_Column(cdata,title);
+                    supprimer_Colonne(cdata,title);
                 }else if (choix3==3){
                     supprimer_ligne(cdata);
                 }else if (choix3==4){
@@ -124,7 +125,7 @@ int main() {
             } else if(choix2==3){
                 int choix5;
                 while (valid != 1) {
-                    printf("Voulez_vous :\n 1 : Remplacer une valeur\n 2 : Savoir le nombre de lignes\n 3: Savoir le nombre de colonnes\n 4 : Afficher le noms des colonnes\n 5 : Savoir si une valeur est presente dans le CdataFrame\n 6 : Savoir combien de fois une valeur est presente dans le CdataFrame\n 7 : Savoir combien de valeurs sont inferieures a une valeur dans le CdataFrame\n 8 : Savoir combien de valeurs sont superieures a une valeur dans le CdataFrame\n 9 : Retour\n");
+                    printf("Voulez_vous :\n 1 : Remplacer une valeur\n 2 : Savoir le nombre de lignes\n 3 : Savoir le nombre de colonnes\n 4 : Afficher le noms des colonnes\n 5 : Savoir si une valeur est presente dans le CdataFrame\n 6 : Savoir combien de fois une valeur est presente dans le CdataFrame\n 7 : Savoir combien de valeurs sont inferieures a une valeur dans le CdataFrame\n 8 : Savoir combien de valeurs sont superieures a une valeur dans le CdataFrame\n 9 : Retour\n");
                     int result = scanf(" %d", &choix5);
                     if (result == 1 && choix >= 1 && choix5 <= 9) {
                         valid = 1;
@@ -137,72 +138,61 @@ int main() {
                 if (choix5 == 1) {
                     int num_lig,num_col;
                     affichage_Cdata(cdata);
-                    printf("Dans quelle colonne voulez-vous remplacer une valeur (entre 1 et %d) : ?\n",get_cdataframe_cols_size(cdata));
+                    printf("Dans quelle colonne voulez-vous remplacer une valeur (entre 1 et %d) : ?\n",avoir_cdataframe_nb_col(cdata));
                     scanf("%d",&num_col);
                     LNODE *noeud=cdata->head;
-                    for(int i=0;i<num_col;i++){
+                    for(int i=0;i<num_col-1;i++){
                         noeud = get_next_node(cdata,noeud);
                     }
                     afficher_col(noeud->data);
-                    printf("Quelle est la ligne de la valeur que vous cherchez a remplacer (entre 1 et %d) : ?\n",noeud->data->TL);
+                    printf("Quelle est la ligne de la valeur que vous cherchez a remplacer (entre 0 et %d) : ?\n",noeud->data->TL-1);
                     scanf(" %d",&num_lig);
-                    int indice_type, valid=0;
-                    while (valid!=1) {
-                        printf("Quel type de valeur : ?\n 0 : pas de type\n 1 : entier positif\n 2 : entier\n 3 : caractere\n 4 : nombre decimal\n 5 : long nombre decimal\n 6 : chaine de caractere\n");
-                        int result = scanf(" %d", &indice_type);
-                        if (result == 1 && indice_type >= 0 && indice_type <= 6) {
-                            valid = 1;
-                        } else {
-                            printf("Entree invalide. Veuillez reessayer.\n");
-                            vider_buffer();
-                        }
-                    }
-                    switch (list_type[indice_type]) {
+                    switch (noeud->data->column_type) {
                         case INT: {
                             int val1 = 0;
-                            printf("Saisir la valeur :\n");
+                            printf("Saisir la nouvelle valeur :\n");
                             scanf(" %d", &val1);
                             vider_buffer();
-                            acces_remplacer_valeur(cdata,num_lig-1,num_col-1,&val1);
+                            acces_remplacer_valeur(cdata,num_lig,num_col-1,&val1);
                             break;
                         }
                         case CHAR: {
                             char val2;
-                            printf("Saisir la valeur :\n");
+                            printf("Saisir la nouvelle valeur :\n");
                             scanf(" %c", &val2);
                             vider_buffer();
-                            acces_remplacer_valeur(cdata,num_lig-1,num_col-1,&val2);
+                            acces_remplacer_valeur(cdata,num_lig,num_col-1,&val2);
                             break;
                         }
                         case UINT: {
                             unsigned int val3 = 0;
-                            printf("Saisir la valeur :\n");
+                            printf("Saisir la nouvelle valeur :\n");
                             scanf(" %u", &val3);
                             vider_buffer();
-                            acces_remplacer_valeur(cdata,num_lig-1,num_col-1,&val3);
+                            acces_remplacer_valeur(cdata,num_lig,num_col-1,&val3);
                             break;
                         }
                         case FLOAT: {
                             float val4 = 0;
-                            printf("Saisir la valeur :\n");
+                            printf("Saisir la nouvelle valeur :\n");
                             scanf(" %f", &val4);
                             vider_buffer();
-                            acces_remplacer_valeur(cdata,num_lig-1,num_col-1,&val4);
+                            acces_remplacer_valeur(cdata,num_lig,num_col-1,&val4);
                             break;
                         }
                         case DOUBLE: {
                             double val5 = 0;
-                            printf("Saisir la valeur :\n");
+                            printf("Saisir la nouvelle valeur :\n");
                             scanf(" %lf", &val5);
                             vider_buffer();
-                            acces_remplacer_valeur(cdata,num_lig-1,num_col-1,&val5);
+                            acces_remplacer_valeur(cdata,num_lig,num_col-1,&val5);
                             break;
                         }
                         case STRING: {
                             char val6[100];
-                            printf("Saisir la valeur :\n");
+                            printf("Saisir la nouvelle valeur :\n");
                             fgets(val6, 100, stdin);
-                            acces_remplacer_valeur(cdata,num_lig-1,num_col-1,val6);
+                            acces_remplacer_valeur(cdata,num_lig,num_col-1,val6);
                             break;
                         }
                             /*case STRUCTURE:

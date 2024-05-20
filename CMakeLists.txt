@@ -10,8 +10,7 @@ include_directories(PARTIE2)
 add_executable(PARTIE2
         PARTIE2/fonctions.c
         PARTIE2/fonctions.h
-        PARTIE2/main2.c
-        PARTIE2/main2.c
+        PARTIE2/main.c
         PARTIE2/CdataFrame.h
         PARTIE2/CdataFrame.c
         PARTIE2/list.h

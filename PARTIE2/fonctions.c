@@ -171,7 +171,6 @@ void convert_value(COLUMN *col, unsigned long long int i, char *str, int size) {
 void afficher_col(COLUMN* col){
     char str[50];
     printf("%s\n", col->titre);
-    //printf("1\n");
     for (int i = 0; i < col->TL; i++){
         if (col->data[i] == NULL){
             printf("[%d] NULL\n", i);

@@ -28,42 +28,42 @@ typedef struct list CDATAFRAME;
 void vider_buffer();
 
 /*
- * Fonction : create_cdataframe
+ * Fonction : creer_cdataframe
  * Rôle : Créer un nouveau dataframe avec des colonnes spécifiées.
  * Paramètres :
  *   - cdftype : Tableau des types des colonnes (ENUM_TYPE*).
  *   - size : Nombre de colonnes (int).
  * Retour : Pointeur vers le nouveau dataframe (CDATAFRAME*).
  */
-CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size);
+CDATAFRAME *creer_cdataframe(ENUM_TYPE *cdftype, int size);
 
 /*
- * Fonction : delete_cdataframe
+ * Fonction : supprimer_cdataframe
  * Rôle : Supprimer un dataframe et libérer la mémoire associée.
  * Paramètres :
  *   - cdf : Pointeur vers le dataframe à supprimer (CDATAFRAME*).
  * Retour : Aucun.
  */
-void delete_cdataframe(CDATAFRAME *cdf);
+void supprimer_cdataframe(CDATAFRAME *cdf);
 
 /*
- * Fonction : delete_Column
+ * Fonction : supprimer_Colonne
  * Rôle : Supprimer une colonne d'un dataframe par son nom.
  * Paramètres :
  *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
  *   - col_name : Nom de la colonne à supprimer (const char*).
  * Retour : Aucun.
  */
-void delete_Column(CDATAFRAME *cdf, const char *col_name);
+void supprimer_Colonne(CDATAFRAME *cdf, const char *col_name);
 
 /*
- * Fonction : get_cdataframe_cols_size
+ * Fonction : avoir_cdataframe_nb_col
  * Rôle : Obtenir le nombre de colonnes dans un dataframe.
  * Paramètres :
  *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
  * Retour : Nombre de colonnes (int).
  */
-int get_cdataframe_cols_size(CDATAFRAME *cdf);
+int avoir_cdataframe_nb_col(CDATAFRAME *cdf);
 
 /*
  * Fonction : remplissage_Cdata

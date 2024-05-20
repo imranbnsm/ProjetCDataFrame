@@ -20,14 +20,14 @@ void vider_buffer() {
 }
 
 /*
- * Fonction : create_cdataframe
+ * Fonction : creer_cdataframe
  * Rôle : Créer un nouveau dataframe avec des colonnes spécifiées.
  * Paramètres :
  *   - cdftype : Tableau des types des colonnes (ENUM_TYPE*).
  *   - size : Nombre de colonnes (int).
  * Retour : Pointeur vers le nouveau dataframe (CDATAFRAME*).
  */
-CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size){
+CDATAFRAME *creer_cdataframe(ENUM_TYPE *cdftype, int size){
     CDATAFRAME *Cdata=lst_create_list();
     for (int i=0;i<size;i++){
         char titre[100];
@@ -62,42 +62,49 @@ CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size){
 }
 
 /*
- * Fonction : delete_cdataframe
+ * Fonction : supprimer_cdataframe
  * Rôle : Supprimer un dataframe et libérer la mémoire associée.
  * Paramètres :
  *   - cdf : Pointeur vers le dataframe à supprimer (CDATAFRAME*).
  * Retour : Aucun.
  */
-void delete_cdataframe(CDATAFRAME *cdf){
+void supprimer_cdataframe(CDATAFRAME *cdf){
+    LNODE *noeud=cdf->head;
+    for (int i=0;i< avoir_cdataframe_nb_col(cdf)-1;i++){
+        lst_delete_lnode(cdf,noeud);
+    }
+    lst_delete_tail(cdf);
     lst_delete_list(cdf);
+    cdf=NULL;
 }
 
 /*
- * Fonction : delete_Column
+ * Fonction : supprimer_Colonne
  * Rôle : Supprimer une colonne d'un dataframe par son nom.
  * Paramètres :
  *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
  *   - col_name : Nom de la colonne à supprimer (const char*).
  * Retour : Aucun.
  */
-void delete_Column(CDATAFRAME *cdf, const char *col_name){
+void supprimer_Colonne(CDATAFRAME *cdf, const char *col_name){
     char *title=cdf->head->data->titre;
     LNODE*noeud=cdf->head;
-    while (*title!=*col_name) {
+    while (strcmp(title,col_name)!=0) {
         noeud=get_next_node(cdf,noeud);
         title=noeud->data->titre;
     }
     delete_column(&noeud->data);
+    lst_delete_lnode(cdf,noeud);
 }
 
 /*
- * Fonction : get_cdataframe_cols_size
+ * Fonction : avoir_cdataframe_nb_col
  * Rôle : Obtenir le nombre de colonnes dans un dataframe.
  * Paramètres :
  *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
  * Retour : Nombre de colonnes (int).
  */
-int get_cdataframe_cols_size(CDATAFRAME *cdf){
+int avoir_cdataframe_nb_col(CDATAFRAME *cdf){
     int size=0;
     LNODE*noeud= get_first_node(cdf);
     while (noeud!=NULL){
@@ -115,7 +122,7 @@ int get_cdataframe_cols_size(CDATAFRAME *cdf){
  * Retour : Aucun.
  */
 void remplissage_Cdata(CDATAFRAME *cdf){
-    int size = get_cdataframe_cols_size(cdf);
+    int size = avoir_cdataframe_nb_col(cdf);
     LNODE*noeud= get_first_node(cdf);
     for (int i=0;i<size;i++){
         int nb_valeurs;
@@ -216,8 +223,8 @@ CDATAFRAME* remplissage_Cdata_dur(){
  * Retour : Aucun.
  */
 void affichage_Cdata(CDATAFRAME *cdf){
-    int size = get_cdataframe_cols_size(cdf);
-    if (size==0){
+    int size = avoir_cdataframe_nb_col(cdf);
+    if (size==0 || cdf==NULL){
         printf("Le Cdataframe est vide.");
     }else{
         LNODE *noeud = get_first_node(cdf);
@@ -238,7 +245,7 @@ void affichage_Cdata(CDATAFRAME *cdf){
  * Retour : Aucun.
  */
 void affichage_partiel_lignes(CDATAFRAME *cdf){
-    int size = get_cdataframe_cols_size(cdf);
+    int size = avoir_cdataframe_nb_col(cdf);
     int nb_lig = 0;
     char str[100];
     printf("Combien de lignes voulez-vous afficher (entre 1 et %d) :?\n",cdf->head->data->TL);
@@ -254,6 +261,7 @@ void affichage_partiel_lignes(CDATAFRAME *cdf){
                 printf("[%d] %s\n",j,str);
             }
             noeud= get_next_node(cdf,noeud);
+            printf("\n");
         }
     }
 }
@@ -266,19 +274,19 @@ void affichage_partiel_lignes(CDATAFRAME *cdf){
  * Retour : Aucun.
  */
 void affichage_partiel_colonnes(CDATAFRAME *cdf){
-    int size = get_cdataframe_cols_size(cdf);
+    int size = avoir_cdataframe_nb_col(cdf);
     int nb_col = 0;
     char str[100];
-    printf("Combien de colonnes voulez-vous afficher (entre 1 et %d) :?\n", get_cdataframe_cols_size(cdf));
+    printf("Combien de colonnes voulez-vous afficher (entre 1 et %d) :?\n", avoir_cdataframe_nb_col(cdf));
     scanf("%d",&nb_col);
     if(size == 0){
         printf("Le Cdataframe est vide.");
     }else{
         LNODE*noeud = get_first_node(cdf);
         for (int i = 0; i<size;i++){
-            printf("%s\n",noeud->data->titre);
             afficher_col(noeud->data);
             noeud = get_next_node(cdf,noeud);
+            printf("\n");
         }
     }
 }
@@ -291,7 +299,7 @@ void affichage_partiel_colonnes(CDATAFRAME *cdf){
  * Retour : Aucun.
  */
 void ajouter_ligne(CDATAFRAME*cdf){
-    int size= get_cdataframe_cols_size(cdf);
+    int size= avoir_cdataframe_nb_col(cdf);
     LNODE* noeud = get_first_node(cdf);
     for(int i = 0; i<size; i++){
         char type[100];
@@ -380,14 +388,15 @@ void ajouter_ligne(CDATAFRAME*cdf){
  */
 void supprimer_ligne(CDATAFRAME *cdf){
     int ligne = 0;
-    printf("Quelle ligne voulez vous supprimer: ?\n");
+    printf("Quelle ligne voulez vous supprimer (entre 1 et %d): ?\n",cdf->head->data->TL);
     scanf("%d",&ligne);
-    int size= get_cdataframe_cols_size(cdf);
+    int size= avoir_cdataframe_nb_col(cdf);
     LNODE* noeud = get_first_node(cdf);
     for(int i = 0; i<size; i++){
-        free(noeud->data->data[ligne]);
-            }
+        free(noeud->data->data[ligne-1]);
+        noeud->data->TL--;
     }
+}
 
 /*
  * Fonction : ajouter_colonne
@@ -485,17 +494,26 @@ void ajouter_colonne(CDATAFRAME *cdf, ENUM_TYPE* list_type){
 void renommer_colonne(CDATAFRAME *cdf){
     char titre[100];
     char titre2[100];
+    vider_buffer();
     printf("Quel est le nom de la colonne a modifier: ?\n");
-    scanf("%s",titre);
+    fgets(titre,100,stdin);
+    size_t len = strcspn(titre, "\n");
+    if (titre[len] == '\n') {
+        titre[len] = '\0';
+    }
     printf("Quel nouveau nom voulez-vous donner a votre colonne: ?\n");
-    scanf("%s",titre2);
+    fgets(titre2,100,stdin);
+    len = strcspn(titre2, "\n");
+    if (titre2[len] == '\n') {
+        titre2[len] = '\0';
+    }
     char *title=cdf->head->data->titre;
     LNODE* noeud = cdf->head;
-    while (*title!=*titre) {
+    while (strcmp(title,titre)!=0) {
         noeud=get_next_node(cdf,noeud);
         title=noeud->data->titre;
     }
-    noeud->data->titre = titre2;
+    strcpy(noeud->data->titre,titre2);
 }
 
 /*
@@ -507,7 +525,7 @@ void renommer_colonne(CDATAFRAME *cdf){
  * Retour : Aucun.
  */
 void recherche_valeur(CDATAFRAME * cdf,void* value){
-    int presence = -1, size= get_cdataframe_cols_size(cdf);
+    int presence = -1, size= avoir_cdataframe_nb_col(cdf);
     LNODE* noeud= get_first_node(cdf);
     for(int i = 0; i < size; i++){
         int occ = nb_occurences(noeud->data,value);
@@ -515,6 +533,7 @@ void recherche_valeur(CDATAFRAME * cdf,void* value){
             presence = 1;
             break;
         }
+        noeud= get_next_node(cdf,noeud);
     }
     if(presence == -1){
         printf("La valeur est absente du CDataframe.\n");
@@ -535,7 +554,7 @@ void recherche_valeur(CDATAFRAME * cdf,void* value){
  */
 void acces_remplacer_valeur(CDATAFRAME *cdf, int n_lig, int n_col, void* value) {
     LNODE *noeud = get_first_node(cdf);
-    for (int i=0;i<=n_col;i++){
+    for (int i=0;i<n_col;i++){
         noeud= get_next_node(cdf,noeud);
     }
     COLUMN* col=noeud->data;
@@ -579,10 +598,11 @@ void acces_remplacer_valeur(CDATAFRAME *cdf, int n_lig, int n_col, void* value) 
  * Retour : Aucun.
  */
 void afficher_noms_colonnes(CDATAFRAME *cdf){
-    int size= get_cdataframe_cols_size(cdf);
+    int size = avoir_cdataframe_nb_col(cdf);
     LNODE* noeud = get_first_node(cdf);
     for(int i = 0; i<size; i++){
-        printf("%s",noeud->data->titre);
+        printf("%s\n",noeud->data->titre);
+        noeud= get_next_node(cdf,noeud);
     }
 }
 
@@ -610,7 +630,7 @@ void afficher_nb_lignes(CDATAFRAME* cdf){
  * Retour : Aucun.
  */
 void afficher_nb_col(CDATAFRAME* cdf){
-    int size= get_cdataframe_cols_size(cdf);
+    int size= avoir_cdataframe_nb_col(cdf);
     if (size==0){
         printf("Le Cdataframe est vide.\n");
     }else {
@@ -627,7 +647,7 @@ void afficher_nb_col(CDATAFRAME* cdf){
  * Retour : Aucun.
  */
 void nb_cellule_egale(CDATAFRAME* cdf, void* value){
-    int size= get_cdataframe_cols_size(cdf),occ=0;
+    int size= avoir_cdataframe_nb_col(cdf),occ=0;
     LNODE* noeud= get_first_node(cdf);
     for (int i=0;i<size;i++){
         occ+=val_egale(noeud->data,value,0);
@@ -649,7 +669,7 @@ void nb_cellule_egale(CDATAFRAME* cdf, void* value){
  * Retour : Aucun.
  */
 void nb_cellule_sup(CDATAFRAME* cdf, void* value){
-    int size= get_cdataframe_cols_size(cdf),occ=0;
+    int size= avoir_cdataframe_nb_col(cdf),occ=0;
     LNODE* noeud= get_first_node(cdf);
     for (int i=0;i<size;i++){
         occ+=val_sup(noeud->data,value,0);
@@ -671,7 +691,7 @@ void nb_cellule_sup(CDATAFRAME* cdf, void* value){
  * Retour : Aucun.
  */
 void nb_cellule_inf(CDATAFRAME* cdf, void* value){
-    int size= get_cdataframe_cols_size(cdf),occ=0;
+    int size= avoir_cdataframe_nb_col(cdf),occ=0;
     LNODE* noeud= get_first_node(cdf);
     for (int i=0;i<size;i++){
         occ+=val_inf(noeud->data,value,0);

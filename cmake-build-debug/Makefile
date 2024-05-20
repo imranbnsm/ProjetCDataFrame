@@ -200,29 +200,29 @@ PARTIE2/list.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/list.c.s
 .PHONY : PARTIE2/list.c.s
 
-PARTIE2/main2.obj: PARTIE2/main2.c.obj
-.PHONY : PARTIE2/main2.obj
+PARTIE2/main.obj: PARTIE2/main.c.obj
+.PHONY : PARTIE2/main.obj
 
 # target to build an object file
-PARTIE2/main2.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/main2.c.obj
-.PHONY : PARTIE2/main2.c.obj
+PARTIE2/main.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/main.c.obj
+.PHONY : PARTIE2/main.c.obj
 
-PARTIE2/main2.i: PARTIE2/main2.c.i
-.PHONY : PARTIE2/main2.i
+PARTIE2/main.i: PARTIE2/main.c.i
+.PHONY : PARTIE2/main.i
 
 # target to preprocess a source file
-PARTIE2/main2.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/main2.c.i
-.PHONY : PARTIE2/main2.c.i
+PARTIE2/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/main.c.i
+.PHONY : PARTIE2/main.c.i
 
-PARTIE2/main2.s: PARTIE2/main2.c.s
-.PHONY : PARTIE2/main2.s
+PARTIE2/main.s: PARTIE2/main.c.s
+.PHONY : PARTIE2/main.s
 
 # target to generate assembly for a file
-PARTIE2/main2.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/main2.c.s
-.PHONY : PARTIE2/main2.c.s
+PARTIE2/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PARTIE2.dir\build.make CMakeFiles/PARTIE2.dir/PARTIE2/main.c.s
+.PHONY : PARTIE2/main.c.s
 
 # Help Target
 help:
@@ -242,9 +242,9 @@ help:
 	@echo ... PARTIE2/list.obj
 	@echo ... PARTIE2/list.i
 	@echo ... PARTIE2/list.s
-	@echo ... PARTIE2/main2.obj
-	@echo ... PARTIE2/main2.i
-	@echo ... PARTIE2/main2.s
+	@echo ... PARTIE2/main.obj
+	@echo ... PARTIE2/main.i
+	@echo ... PARTIE2/main.s
 .PHONY : help
 
 

@@ -80,7 +80,7 @@ CMakeFiles/PARTIE2.dir/PARTIE2/list.c.obj: C:/Users/antoi/CLionProjects/ProjetCD
   C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/fonctions.h \
   C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/list.h
 
-CMakeFiles/PARTIE2.dir/PARTIE2/main2.c.obj: C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/main2.c \
+CMakeFiles/PARTIE2.dir/PARTIE2/main.c.obj: C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/main.c \
   C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/_mingw_off_t.h \
@@ -155,4 +155,4 @@ C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/list.h:
 
 C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/list.c:
 
-C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/main2.c:
+C:/Users/antoi/CLionProjects/ProjetCDataFrame/PARTIE2/main.c:
