@@ -4,6 +4,7 @@
 #include "fonctions.h"
 
 typedef struct list CDATAFRAME;
+void vider_buffer();
 CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size);
 void delete_cdataframe(CDATAFRAME *cdf);
 void delete_Column(CDATAFRAME *cdf, const char *col_name);

@@ -1,6 +1,7 @@
+/* Projet CdataFrame, auteurs : Imrân Benessam et Antoine Gosse, ce fichier comporte les différentes f0onctions
+ * qui permettent de manipuler les listes doublement chaînées.*/
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "list.h"
 LNODE *lst_create_lnode(void *dat) {
     LNODE *ptmp = (LNODE *) malloc(sizeof(LNODE));

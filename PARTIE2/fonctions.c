@@ -1,3 +1,5 @@
+/* Projet CdataFrame, auteurs : Imrân Benessam et Antoine Gosse, ce fichier comporte les différentes fonctionnalités d
+ * de la structure Colonne. Cette structure peut contenier des valeurs de tous types.*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -127,7 +129,7 @@ void afficher_col(COLUMN*col){
         }else {
             convert_value(col, i, str, 10);
             printf("[%d] %s \n", i, str);
-            }
+        }
     }
 }
 

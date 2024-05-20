@@ -1,21 +1,37 @@
+/* Projet CdataFrame, auteurs : Imrân Benessam et Antoine Gosse, ce fichier comporte les différentes fonctionnalités d
+ * du CdataFrame où le CdataFrame est une liste doublement chaînée*/
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "CdataFrame.h"
 #include "fonctions.h"
 #include "list.h"
 #define REALLOC_SIZE 256
 
+void vider_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size){
     CDATAFRAME *Cdata=lst_create_list();
     for (int i=0;i<size;i++){
         char title[100];
+        int indice_type,valid=0;
+        vider_buffer();
         printf("Saisir le titre de la colonne %d:\n",i+1);
-        scanf(" %s",title);
-        int l;
-        printf("Quel type de colonne %d: ?\n",i+1);
-        scanf(" %d",&l);
-        COLUMN *col= creer_colonne(cdftype[l],title);
+        fgets(title,100,stdin);
+        while (valid!=1) {
+            printf("Quel type de colonne %d: ?\n 0 : pas de type\n 1 : entier positif\n 2 : entier\n 3 : caractere\n 4 : nombre decimal\n 5 : long nombre decimal\n 6 : chaine de caractere\n",
+                   i + 1);
+            int result = scanf(" %d", &indice_type);
+            if (result == 1 && indice_type >= 0 && indice_type <= 6) {
+                valid = 1;
+            } else {
+                printf("Entree invalide. Veuillez reessayer.\n");
+                vider_buffer();
+            }
+        }
+        COLUMN *col= creer_colonne(cdftype[indice_type],title);
         LNODE *noeud= lst_create_lnode(col);
         if (i==0){
             lst_insert_head(Cdata,noeud);
@@ -57,42 +73,48 @@ void remplissage_Cdata(CDATAFRAME *cdf){
         int nb_valeurs;
         printf("Nombre de valeurs dans la colonne %d :\n",i+1);
         scanf(" %d",&nb_valeurs);
+        vider_buffer();
         for (int j=0;j<nb_valeurs;j++) {
             switch (noeud->data->column_type) {
                 case INT:
                 {int val1=0;
                     printf("Saisir la valeur %d :\n",j+1);
                     scanf(" %d",&val1);
+                    //vider_buffer();
                     insert_value(noeud->data,&val1);
                     break;}
                 case CHAR:
                 {char val2;
                     printf("Saisir la valeur %d :\n",j+1);
                     scanf(" %c",&val2);
+                    vider_buffer();
                     insert_value(noeud->data,&val2);
                     break;}
                 case UINT:
                 {unsigned int val3=0;
                     printf("Saisir la valeur %d :\n",j+1);
                     scanf(" %u",&val3);
+                    vider_buffer();
                     insert_value(noeud->data,&val3);
                     break;}
                 case FLOAT:
                 {float val4=0;
                     printf("Saisir la valeur %d :\n",j+1);
                     scanf(" %f",&val4);
+                    vider_buffer();
                     insert_value(noeud->data,&val4);
                     break;}
                 case DOUBLE:
                 {double val5=0;
                     printf("Saisir la valeur %d :\n",j+1);
                     scanf(" %lf",&val5);
+                    vider_buffer();
                     insert_value(noeud->data,&val5);
                     break;}
                 case STRING:
                 {char val6[100];
                     printf("Saisir la valeur %d :\n",j+1);
-                    scanf(" %s",val6);
+                    fgets(val6,100,stdin);
                     insert_value(noeud->data,val6);
                     break;}
                 /*case STRUCTURE:
@@ -141,7 +163,7 @@ void affichage_Cdata(CDATAFRAME *cdf){
         LNODE *noeud= get_first_node(cdf);
         for (int i=0;i<size;i++){
             afficher_col(noeud->data);
-            noeud= get_next_node(cdf,noeud);
+            noeud = get_next_node(cdf,noeud);
         }
     }
 }
@@ -196,36 +218,41 @@ void ajouter_ligne(CDATAFRAME*cdf){
             {int val1=0;
                 printf("Saisir la valeur :\n");
                 scanf(" %d",&val1);
+                vider_buffer();
                 insert_value(noeud->data,&val1);
                 break;}
             case CHAR:
             {char val2;
                 printf("Saisir la valeur :\n");
                 scanf(" %c",&val2);
+                vider_buffer();
                 insert_value(noeud->data,&val2);
                 break;}
             case UINT:
             {unsigned int val3=0;
                 printf("Saisir la valeur :\n");
                 scanf(" %u",&val3);
+                vider_buffer();
                 insert_value(noeud->data,&val3);
                 break;}
             case FLOAT:
             {float val4=0;
                 printf("Saisir la valeur :\n");
                 scanf(" %f",&val4);
+                vider_buffer();
                 insert_value(noeud->data,&val4);
                 break;}
             case DOUBLE:
             {double val5=0;
                 printf("Saisir la valeur :\n");
                 scanf(" %lf",&val5);
+                vider_buffer();
                 insert_value(noeud->data,&val5);
                 break;}
             case STRING:
             {char val6[100];
                 printf("Saisir la valeur :\n");
-                scanf(" %s",val6);
+                fgets(val6,100,stdin);
                 insert_value(noeud->data,val6);
                 break;}
                 /*case STRUCTURE:
@@ -253,13 +280,21 @@ void supprimer_ligne(CDATAFRAME *cdf){
 
 void ajouter_colonne(CDATAFRAME *cdf, ENUM_TYPE* list_type){
     char titre[100];
+    int indice_type, valid=0;
     LNODE* tail = get_last_node(cdf);
     printf("Quel nom voulez-vous donner a votre colonne: ?\n");
-    scanf(" %s",titre);
-    int l;
-    printf("Quel type de colonne: ?\n");
-    scanf(" %d",&l);
-    COLUMN* c = creer_colonne(list_type[l],titre);
+    fgets(titre,100,stdin);
+    while (valid!=1) {
+        printf("Quel type de colonne : ?\n 0 : pas de type\n 1 : entier positif\n 2 : entier\n 3 : caractere\n 4 : nombre decimal\n 5 : long nombre decimal\n 6 : chaine de caractere\n");
+        int result = scanf(" %d", &indice_type);
+        if (result == 1 && indice_type >= 0 && indice_type <= 6) {
+            valid = 1;
+        } else {
+            printf("Entree invalide. Veuillez reessayer.\n");
+            vider_buffer();
+        }
+    }
+    COLUMN* c = creer_colonne(list_type[indice_type],titre);
     int nb_valeur=tail->data->TL;
     for (int j=0;j<nb_valeur;j++) {
         switch (c->column_type) {
@@ -267,36 +302,41 @@ void ajouter_colonne(CDATAFRAME *cdf, ENUM_TYPE* list_type){
             {int val1=0;
                 printf("Saisir la valeur %d :\n",j+1);
                 scanf(" %d",&val1);
+                vider_buffer();
                 insert_value(c ,&val1);
                 break;}
             case CHAR:
             {char val2;
                 printf("Saisir la valeur %d :\n",j+1);
                 scanf(" %c",&val2);
+                vider_buffer();
                 insert_value(c,&val2);
                 break;}
             case UINT:
             {unsigned int val3=0;
                 printf("Saisir la valeur %d :\n",j+1);
                 scanf(" %u",&val3);
+                vider_buffer();
                 insert_value(c,&val3);
                 break;}
             case FLOAT:
             {float val4=0;
                 printf("Saisir la valeur %d :\n",j+1);
                 scanf(" %f",&val4);
+                vider_buffer();
                 insert_value(c,&val4);
                 break;}
             case DOUBLE:
             {double val5=0;
                 printf("Saisir la valeur %d :\n",j+1);
                 scanf(" %lf",&val5);
+                vider_buffer();
                 insert_value(c,&val5);
                 break;}
             case STRING:
             {char val6[100];
                 printf("Saisir la valeur %d :\n",j+1);
-                scanf(" %s",val6);
+                fgets(val6,100,stdin);
                 insert_value(c,val6);
                 break;}
                 /*case STRUCTURE:
