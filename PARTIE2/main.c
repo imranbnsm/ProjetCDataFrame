@@ -1,6 +1,7 @@
 /* Projet CdataFrame, auteurs : Imrân Benessam et Antoine Gosse, ce fichier rassemble l'ensemble des fonctionnalités
  * créées et est le fichier principal du projet.*/
 #include <stdio.h>
+#include <string.h>
 #include "fonctions.h"
 #include "list.h"
 #include "CdataFrame.h"
@@ -86,6 +87,10 @@ int main() {
                     vider_buffer();
                     printf("Quelle colonne voulez-vous supprimer (donnez le titre): ?\n");
                     fgets(titre,100,stdin);
+                    size_t len = strcspn(titre, "\n");
+                    if (titre[len] == '\n') {
+                        titre[len] = '\0';
+                    }
                     supprimer_Colonne(cdata,titre);
                 }else if (choix3==3){
                     supprimer_ligne(cdata);
