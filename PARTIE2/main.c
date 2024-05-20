@@ -77,15 +77,16 @@ int main() {
                     supprimer_cdataframe(cdata);
                     break;
                 } else if(choix3==2){
-                    char title[100];
+                    char titre[100];
                     LNODE *noeud=cdata->head;
                     for (int i=0;i<avoir_cdataframe_nb_col(cdata);i++){
                         printf("[%d] %s\n",i,noeud->data->titre);
                         noeud = get_next_node(cdata,noeud);
                     }
+                    vider_buffer();
                     printf("Quelle colonne voulez-vous supprimer (donnez le titre): ?\n");
-                    fgets(title,100,stdin);
-                    supprimer_Colonne(cdata,title);
+                    fgets(titre,100,stdin);
+                    supprimer_Colonne(cdata,titre);
                 }else if (choix3==3){
                     supprimer_ligne(cdata);
                 }else if (choix3==4){

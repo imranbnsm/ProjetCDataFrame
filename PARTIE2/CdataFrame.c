@@ -88,7 +88,7 @@ void supprimer_cdataframe(CDATAFRAME *cdf){
  */
 void supprimer_Colonne(CDATAFRAME *cdf, const char *col_name){
     char *title=cdf->head->data->titre;
-    LNODE*noeud=cdf->head;
+    LNODE *noeud=cdf->head;
     while (strcmp(title,col_name)!=0) {
         noeud=get_next_node(cdf,noeud);
         title=noeud->data->titre;
@@ -388,13 +388,18 @@ void ajouter_ligne(CDATAFRAME*cdf){
  */
 void supprimer_ligne(CDATAFRAME *cdf){
     int ligne = 0;
-    printf("Quelle ligne voulez vous supprimer (entre 1 et %d): ?\n",cdf->head->data->TL);
+    printf("Quelle ligne voulez vous supprimer (entre 0 et %d): ?\n",cdf->head->data->TL-1);
     scanf("%d",&ligne);
     int size= avoir_cdataframe_nb_col(cdf);
     LNODE* noeud = get_first_node(cdf);
     for(int i = 0; i<size; i++){
-        free(noeud->data->data[ligne-1]);
+        free(noeud->data->data[ligne]);
+        for (int j=ligne;j<noeud->data->TL;j++){
+            noeud->data->data[j]=noeud->data->data[j+1];
+        }
         noeud->data->TL--;
+        noeud->data->data = realloc(noeud->data->data,noeud->data->TL* sizeof(void *));
+        noeud = get_next_node(cdf,noeud);
     }
 }
 
