@@ -30,11 +30,15 @@ void vider_buffer() {
 CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size){
     CDATAFRAME *Cdata=lst_create_list();
     for (int i=0;i<size;i++){
-        char title[100];
+        char titre[100];
         int indice_type,valid=0;
         vider_buffer();
         printf("Saisir le titre de la colonne %d:\n",i+1);
-        fgets(title,100,stdin);
+        fgets(titre,100,stdin); //fgets permet à l'utilisateur d'écrire une phrase soit des mots séparés par des espaces
+        size_t len = strcspn(titre, "\n"); //cette fonction permet d'enlever \n de la fin du titre de la colonne
+        if (titre[len] == '\n') {
+            titre[len] = '\0';
+        }
         while (valid!=1) {
             printf("Quel type de colonne %d: ?\n 0 : pas de type\n 1 : entier positif\n 2 : entier\n 3 : caractere\n 4 : nombre decimal\n 5 : long nombre decimal\n 6 : chaine de caractere\n",
                    i + 1);
@@ -46,7 +50,7 @@ CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size){
                 vider_buffer();
             }
         }
-        COLUMN *col= creer_colonne(cdftype[indice_type],title);
+        COLUMN *col= creer_colonne(cdftype[indice_type],titre);
         LNODE *noeud= lst_create_lnode(col);
         if (i==0){
             lst_insert_head(Cdata,noeud);
@@ -154,6 +158,10 @@ void remplissage_Cdata(CDATAFRAME *cdf){
                 {char val6[100];
                     printf("Saisir la valeur %d :\n",j+1);
                     fgets(val6,100,stdin);
+                    size_t len = strcspn(val6, "\n");
+                    if (val6[len] == '\n') {
+                        val6[len] = '\0';
+                    }
                     insert_value(noeud->data,val6);
                     break;}
                 /*case STRUCTURE:
@@ -346,6 +354,10 @@ void ajouter_ligne(CDATAFRAME*cdf){
             {char val6[100];
                 printf("Saisir la valeur :\n");
                 fgets(val6,100,stdin);
+                size_t len = strcspn(val6, "\n");
+                if (val6[len] == '\n') {
+                    val6[len] = '\0';
+                }
                 insert_value(noeud->data,val6);
                 break;}
                 /*case STRUCTURE:
@@ -389,8 +401,13 @@ void ajouter_colonne(CDATAFRAME *cdf, ENUM_TYPE* list_type){
     char titre[100];
     int indice_type, valid=0;
     LNODE* tail = get_last_node(cdf);
+    vider_buffer();
     printf("Quel nom voulez-vous donner a votre colonne: ?\n");
     fgets(titre,100,stdin);
+    size_t len = strcspn(titre, "\n");
+    if (titre[len] == '\n') {
+        titre[len] = '\0';
+    }
     while (valid!=1) {
         printf("Quel type de colonne : ?\n 0 : pas de type\n 1 : entier positif\n 2 : entier\n 3 : caractere\n 4 : nombre decimal\n 5 : long nombre decimal\n 6 : chaine de caractere\n");
         int result = scanf(" %d", &indice_type);
@@ -401,6 +418,7 @@ void ajouter_colonne(CDATAFRAME *cdf, ENUM_TYPE* list_type){
             vider_buffer();
         }
     }
+    vider_buffer();
     COLUMN* c = creer_colonne(list_type[indice_type],titre);
     int nb_valeur=tail->data->TL;
     for (int j=0;j<nb_valeur;j++) {
@@ -439,6 +457,10 @@ void ajouter_colonne(CDATAFRAME *cdf, ENUM_TYPE* list_type){
             {char val6[100];
                 printf("Saisir la valeur %d :\n",j+1);
                 fgets(val6,100,stdin);
+                size_t len = strcspn(val6, "\n");
+                if (val6[len] == '\n') {
+                    val6[len] = '\0';
+                }
                 insert_value(c,val6);
                 break;}
                 /*case STRUCTURE:
