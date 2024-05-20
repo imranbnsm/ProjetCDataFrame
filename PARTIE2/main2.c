@@ -111,10 +111,13 @@ int main() {
                 valid = 0;
                 if (choix4==1){
                     affichage_Cdata(cdata);
+                    printf("\n");
                 }else if (choix4==2){
                     affichage_partiel_lignes(cdata);
+                    printf("\n");
                 }else if (choix4==3){
                     affichage_partiel_colonnes(cdata);
+                    printf("\n");
                 }else{
                     continue;
                 }

@@ -212,7 +212,8 @@ void affichage_Cdata(CDATAFRAME *cdf){
     if (size==0){
         printf("Le Cdataframe est vide.");
     }else{
-        LNODE *noeud= get_first_node(cdf);
+        LNODE *noeud = get_first_node(cdf);
+        printf("\n");
         for (int i=0;i<size;i++){
             afficher_col(noeud->data);
             noeud = get_next_node(cdf,noeud);
@@ -231,7 +232,7 @@ void affichage_partiel_lignes(CDATAFRAME *cdf){
     int size = get_cdataframe_cols_size(cdf);
     int nb_lig = 0;
     char str[100];
-    printf("Combien de lignes voulez-vous afficher :?\n");
+    printf("Combien de lignes voulez-vous afficher (entre 1 et %d) :?\n",cdf->head->data->TL);
     scanf("%d",&nb_lig);
     if(size == 0){
         printf("Le Cdataframe est vide.");
@@ -259,7 +260,7 @@ void affichage_partiel_colonnes(CDATAFRAME *cdf){
     int size = get_cdataframe_cols_size(cdf);
     int nb_col = 0;
     char str[100];
-    printf("Combien de colonnes voulez-vous afficher :?\n");
+    printf("Combien de colonnes voulez-vous afficher (entre 1 et %d) :?\n", get_cdataframe_cols_size(cdf));
     scanf("%d",&nb_col);
     if(size == 0){
         printf("Le Cdataframe est vide.");
@@ -284,7 +285,7 @@ void ajouter_ligne(CDATAFRAME*cdf){
     int size= get_cdataframe_cols_size(cdf);
     LNODE* noeud = get_first_node(cdf);
     for(int i = 0; i<size; i++){
-        char type[10];
+        char type[100];
         switch(noeud->data->column_type) {
             case INT:
                 strcpy(type,"entier");
