@@ -217,6 +217,7 @@ void affichage_Cdata(CDATAFRAME *cdf){
         for (int i=0;i<size;i++){
             afficher_col(noeud->data);
             noeud = get_next_node(cdf,noeud);
+            printf("\n");
         }
     }
 }

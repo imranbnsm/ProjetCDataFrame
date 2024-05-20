@@ -169,13 +169,14 @@ void convert_value(COLUMN *col, unsigned long long int i, char *str, int size) {
  * Retour : Aucun.
  */
 void afficher_col(COLUMN* col){
-    char str[10];
+    char str[50];
     printf("%s\n", col->titre);
+    //printf("1\n");
     for (int i = 0; i < col->TL; i++){
         if (col->data[i] == NULL){
             printf("[%d] NULL\n", i);
         } else {
-            convert_value(col, i, str, 10);
+            convert_value(col, i, str, 50);
             printf("[%d] %s\n", i, str);
         }
     }
