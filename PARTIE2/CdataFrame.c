@@ -2,16 +2,31 @@
  * du CdataFrame où le CdataFrame est une liste doublement chaînée*/
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "CdataFrame.h"
 #include "fonctions.h"
 #include "list.h"
 #define REALLOC_SIZE 256
 
+/*
+ * Fonction : vider_buffer
+ * Rôle : Vider le buffer d'entrée.
+ * Paramètres : Aucun.
+ * Retour : Aucun.
+ */
 void vider_buffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
+/*
+ * Fonction : create_cdataframe
+ * Rôle : Créer un nouveau dataframe avec des colonnes spécifiées.
+ * Paramètres :
+ *   - cdftype : Tableau des types des colonnes (ENUM_TYPE*).
+ *   - size : Nombre de colonnes (int).
+ * Retour : Pointeur vers le nouveau dataframe (CDATAFRAME*).
+ */
 CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size){
     CDATAFRAME *Cdata=lst_create_list();
     for (int i=0;i<size;i++){
@@ -42,10 +57,25 @@ CDATAFRAME *create_cdataframe(ENUM_TYPE *cdftype, int size){
     return Cdata;
 }
 
+/*
+ * Fonction : delete_cdataframe
+ * Rôle : Supprimer un dataframe et libérer la mémoire associée.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe à supprimer (CDATAFRAME*).
+ * Retour : Aucun.
+ */
 void delete_cdataframe(CDATAFRAME *cdf){
     lst_delete_list(cdf);
 }
 
+/*
+ * Fonction : delete_Column
+ * Rôle : Supprimer une colonne d'un dataframe par son nom.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ *   - col_name : Nom de la colonne à supprimer (const char*).
+ * Retour : Aucun.
+ */
 void delete_Column(CDATAFRAME *cdf, const char *col_name){
     char *title=cdf->head->data->titre;
     LNODE*noeud=cdf->head;
@@ -56,6 +86,13 @@ void delete_Column(CDATAFRAME *cdf, const char *col_name){
     delete_column(&noeud->data);
 }
 
+/*
+ * Fonction : get_cdataframe_cols_size
+ * Rôle : Obtenir le nombre de colonnes dans un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Nombre de colonnes (int).
+ */
 int get_cdataframe_cols_size(CDATAFRAME *cdf){
     int size=0;
     LNODE*noeud= get_first_node(cdf);
@@ -66,6 +103,13 @@ int get_cdataframe_cols_size(CDATAFRAME *cdf){
     return size;
 }
 
+/*
+ * Fonction : remplissage_Cdata
+ * Rôle : Remplir un dataframe avec des données.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Aucun.
+ */
 void remplissage_Cdata(CDATAFRAME *cdf){
     int size = get_cdataframe_cols_size(cdf);
     LNODE*noeud= get_first_node(cdf);
@@ -80,35 +124,30 @@ void remplissage_Cdata(CDATAFRAME *cdf){
                 {int val1=0;
                     printf("Saisir la valeur %d :\n",j+1);
                     scanf(" %d",&val1);
-                    //vider_buffer();
                     insert_value(noeud->data,&val1);
                     break;}
                 case CHAR:
                 {char val2;
                     printf("Saisir la valeur %d :\n",j+1);
                     scanf(" %c",&val2);
-                    vider_buffer();
                     insert_value(noeud->data,&val2);
                     break;}
                 case UINT:
                 {unsigned int val3=0;
                     printf("Saisir la valeur %d :\n",j+1);
                     scanf(" %u",&val3);
-                    vider_buffer();
                     insert_value(noeud->data,&val3);
                     break;}
                 case FLOAT:
                 {float val4=0;
                     printf("Saisir la valeur %d :\n",j+1);
                     scanf(" %f",&val4);
-                    vider_buffer();
                     insert_value(noeud->data,&val4);
                     break;}
                 case DOUBLE:
                 {double val5=0;
                     printf("Saisir la valeur %d :\n",j+1);
                     scanf(" %lf",&val5);
-                    vider_buffer();
                     insert_value(noeud->data,&val5);
                     break;}
                 case STRING:
@@ -129,6 +168,12 @@ void remplissage_Cdata(CDATAFRAME *cdf){
     }
 }
 
+/*
+ * Fonction : remplissage_Cdata_dur
+ * Rôle : Remplir un dataframe avec des données fixes (dur).
+ * Paramètres : Aucun.
+ * Retour : Pointeur vers le dataframe rempli (CDATAFRAME*).
+ */
 CDATAFRAME* remplissage_Cdata_dur(){
     CDATAFRAME* cdf = lst_create_list();
     COLUMN* col = creer_colonne(INT,"Col1");
@@ -155,6 +200,13 @@ CDATAFRAME* remplissage_Cdata_dur(){
     return cdf;
 }
 
+/*
+ * Fonction : affichage_Cdata
+ * Rôle : Afficher le contenu d'un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Aucun.
+ */
 void affichage_Cdata(CDATAFRAME *cdf){
     int size = get_cdataframe_cols_size(cdf);
     if (size==0){
@@ -168,6 +220,13 @@ void affichage_Cdata(CDATAFRAME *cdf){
     }
 }
 
+/*
+ * Fonction : affichage_partiel_lignes
+ * Rôle : Afficher partiellement les lignes d'un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Aucun.
+ */
 void affichage_partiel_lignes(CDATAFRAME *cdf){
     int size = get_cdataframe_cols_size(cdf);
     int nb_lig = 0;
@@ -189,6 +248,13 @@ void affichage_partiel_lignes(CDATAFRAME *cdf){
     }
 }
 
+/*
+ * Fonction : affichage_partiel_colonnes
+ * Rôle : Afficher partiellement les colonnes d'un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Aucun.
+ */
 void affichage_partiel_colonnes(CDATAFRAME *cdf){
     int size = get_cdataframe_cols_size(cdf);
     int nb_col = 0;
@@ -207,46 +273,71 @@ void affichage_partiel_colonnes(CDATAFRAME *cdf){
     }
 }
 
-
+/*
+ * Fonction : ajouter_ligne
+ * Rôle : Ajouter une ligne à un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Aucun.
+ */
 void ajouter_ligne(CDATAFRAME*cdf){
     int size= get_cdataframe_cols_size(cdf);
     LNODE* noeud = get_first_node(cdf);
     for(int i = 0; i<size; i++){
-        printf("Ajout de ligne dans la colonne '%s'\n",noeud->data->titre);
+        char type[10];
+        switch(noeud->data->column_type) {
+            case INT:
+                strcpy(type,"entier");
+                break;
+            case CHAR:
+                strcpy(type,"caractere");
+                break;
+            case UINT:
+                strcpy(type,"entier positif");
+                break;
+            case FLOAT:
+                strcpy(type,"nombre decimal");
+                break;
+            case DOUBLE:
+                strcpy(type,"long nombre decimal");
+                break;
+            case STRING:
+                strcpy(type,"chaine de caractere");
+                break;
+            default:
+                break;
+        }
+        printf("Ajout de ligne dans la colonne '%s' de type %s\n",noeud->data->titre,type);
         switch (noeud->data->column_type) {
             case INT:
             {int val1=0;
                 printf("Saisir la valeur :\n");
                 scanf(" %d",&val1);
-                vider_buffer();
                 insert_value(noeud->data,&val1);
                 break;}
             case CHAR:
             {char val2;
                 printf("Saisir la valeur :\n");
                 scanf(" %c",&val2);
-                vider_buffer();
+
                 insert_value(noeud->data,&val2);
                 break;}
             case UINT:
             {unsigned int val3=0;
                 printf("Saisir la valeur :\n");
                 scanf(" %u",&val3);
-                vider_buffer();
                 insert_value(noeud->data,&val3);
                 break;}
             case FLOAT:
             {float val4=0;
                 printf("Saisir la valeur :\n");
                 scanf(" %f",&val4);
-                vider_buffer();
                 insert_value(noeud->data,&val4);
                 break;}
             case DOUBLE:
             {double val5=0;
                 printf("Saisir la valeur :\n");
                 scanf(" %lf",&val5);
-                vider_buffer();
                 insert_value(noeud->data,&val5);
                 break;}
             case STRING:
@@ -266,6 +357,13 @@ void ajouter_ligne(CDATAFRAME*cdf){
     }
 }
 
+/*
+ * Fonction : supprimer_ligne
+ * Rôle : Supprimer une ligne d'un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Aucun.
+ */
 void supprimer_ligne(CDATAFRAME *cdf){
     int ligne = 0;
     printf("Quelle ligne voulez vous supprimer: ?\n");
@@ -277,7 +375,14 @@ void supprimer_ligne(CDATAFRAME *cdf){
             }
     }
 
-
+/*
+ * Fonction : ajouter_colonne
+ * Rôle : Ajouter une colonne à un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ *   - list_type : Type de la colonne à ajouter (ENUM_TYPE*).
+ * Retour : Aucun.
+ */
 void ajouter_colonne(CDATAFRAME *cdf, ENUM_TYPE* list_type){
     char titre[100];
     int indice_type, valid=0;
@@ -302,35 +407,30 @@ void ajouter_colonne(CDATAFRAME *cdf, ENUM_TYPE* list_type){
             {int val1=0;
                 printf("Saisir la valeur %d :\n",j+1);
                 scanf(" %d",&val1);
-                vider_buffer();
                 insert_value(c ,&val1);
                 break;}
             case CHAR:
             {char val2;
                 printf("Saisir la valeur %d :\n",j+1);
                 scanf(" %c",&val2);
-                vider_buffer();
                 insert_value(c,&val2);
                 break;}
             case UINT:
             {unsigned int val3=0;
                 printf("Saisir la valeur %d :\n",j+1);
                 scanf(" %u",&val3);
-                vider_buffer();
                 insert_value(c,&val3);
                 break;}
             case FLOAT:
             {float val4=0;
                 printf("Saisir la valeur %d :\n",j+1);
                 scanf(" %f",&val4);
-                vider_buffer();
                 insert_value(c,&val4);
                 break;}
             case DOUBLE:
             {double val5=0;
                 printf("Saisir la valeur %d :\n",j+1);
                 scanf(" %lf",&val5);
-                vider_buffer();
                 insert_value(c,&val5);
                 break;}
             case STRING:
@@ -351,7 +451,13 @@ void ajouter_colonne(CDATAFRAME *cdf, ENUM_TYPE* list_type){
     lst_insert_after(cdf,noeud,tail);
 }
 
-
+/*
+ * Fonction : renommer_colonne
+ * Rôle : Renommer une colonne d'un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Aucun.
+ */
 void renommer_colonne(CDATAFRAME *cdf){
     char titre[100];
     char titre2[100];
@@ -368,136 +474,15 @@ void renommer_colonne(CDATAFRAME *cdf){
     noeud->data->titre = titre2;
 }
 
-void* input_utilisateur(ENUM_TYPE* list_type) {
-    int indice_type, valid=0;
-    while (valid!=1) {
-        printf("Quel type de colonne : ?\n 0 : pas de type\n 1 : entier positif\n 2 : entier\n 3 : caractere\n 4 : nombre decimal\n 5 : long nombre decimal\n 6 : chaine de caractere\n");
-        int result = scanf(" %d", &indice_type);
-        if (result == 1 && indice_type >= 0 && indice_type <= 6) {
-            valid = 1;
-        } else {
-            printf("Entree invalide. Veuillez reessayer.\n");
-            vider_buffer();
-        }
-    }
-    switch (list_type[indice_type]) {
-        case INT: {
-            int val1 = 0;
-            printf("Saisir la valeur :\n");
-            scanf(" %d", &val1);
-            vider_buffer();
-            return val1;
-            break;
-        }
-        case CHAR: {
-            char val2;
-            printf("Saisir la valeur :\n");
-            scanf(" %c", &val2);
-            vider_buffer();
-            return val2;
-            break;
-        }
-        case UINT: {
-            unsigned int val3 = 0;
-            printf("Saisir la valeur :\n");
-            scanf(" %u", &val3);
-            vider_buffer();
-            return val3;
-            break;
-        }
-        case FLOAT: {
-            float val4 = 0;
-            printf("Saisir la valeur :\n");
-            scanf(" %f", &val4);
-            vider_buffer();
-            return val4;
-            break;
-        }
-        case DOUBLE: {
-            double val5 = 0;
-            printf("Saisir la valeur :\n");
-            scanf(" %lf", &val5);
-            vider_buffer();
-            return val5;
-            break;
-        }
-        case STRING: {
-            char val6[100];
-            printf("Saisir la valeur :\n");
-            fgets(val6, 100, stdin);
-            return val6;
-            break;
-        }
-            /*case STRUCTURE:
-                //col->data[col->TL] = (struct *) malloc (sizeof(struct));
-                //*((struct*)col->data[col->TL])= *((struct*)value);
-                break;*/
-        case NULLVAL:
-            break;
-    }
-}
-
-void recherche_valeur(CDATAFRAME * cdf,ENUM_TYPE* list_type){
-    int indice_type, valid=0;
-    while (valid!=1) {
-        printf("Quel type de colonne : ?\n 0 : pas de type\n 1 : entier positif\n 2 : entier\n 3 : caractere\n 4 : nombre decimal\n 5 : long nombre decimal\n 6 : chaine de caractere\n");
-        int result = scanf(" %d", &indice_type);
-        if (result == 1 && indice_type >= 0 && indice_type <= 6) {
-            valid = 1;
-        } else {
-            printf("Entree invalide. Veuillez reessayer.\n");
-            vider_buffer();
-        }
-    }
-    switch (list_type[indice_type]) {
-        case INT: {
-            int val1 = 0;
-            printf("Saisir la valeur :\n");
-            scanf(" %d", &val1);
-            vider_buffer();
-            break;
-        }
-        case CHAR: {
-            char val2;
-            printf("Saisir la valeur :\n");
-            scanf(" %c", &val2);
-            vider_buffer();
-            break;
-        }
-        case UINT: {
-            unsigned int val3 = 0;
-            printf("Saisir la valeur :\n");
-            scanf(" %u", &val3);
-            vider_buffer();
-            break;
-        }
-        case FLOAT: {
-            float val4 = 0;
-            printf("Saisir la valeur :\n");
-            scanf(" %f", &val4);
-            vider_buffer();
-            break;
-        }
-        case DOUBLE: {
-            double val5 = 0;
-            printf("Saisir la valeur :\n");
-            scanf(" %lf", &val5);
-            vider_buffer();
-            break;
-        }
-        case STRING: {
-            char val6[100];
-            printf("Saisir la valeur :\n");
-            fgets(val6, 100, stdin);
-            break;
-        }
-            /*case STRUCTURE:
-                //col->data[col->TL] = (struct *) malloc (sizeof(struct));
-                //*((struct*)col->data[col->TL])= *((struct*)value);
-                break;*/
-        case NULLVAL:
-            break;
-    }
+/*
+ * Fonction : recherche_valeur
+ * Rôle : Rechercher une valeur dans un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ *   - valeur : Pointeur vers la valeur à rechercher (void*).
+ * Retour : Aucun.
+ */
+void recherche_valeur(CDATAFRAME * cdf,void* value){
     int presence = -1, size= get_cdataframe_cols_size(cdf);
     LNODE* noeud= get_first_node(cdf);
     for(int i = 0; i < size; i++){
@@ -514,6 +499,61 @@ void recherche_valeur(CDATAFRAME * cdf,ENUM_TYPE* list_type){
     }
 }
 
+/*
+ * Fonction : acces_remplacer_valeur
+ * Rôle : Accéder et remplacer une valeur dans un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ *   - n_lig : Numéro de la ligne (int).
+ *   - n_col : Numéro de la colonne (int).
+ *   - value : nouvelle valeur (tous types).
+ * Retour : Aucun.
+ */
+void acces_remplacer_valeur(CDATAFRAME *cdf, int n_lig, int n_col, void* value) {
+    LNODE *noeud = get_first_node(cdf);
+    for (int i=0;i<=n_col;i++){
+        noeud= get_next_node(cdf,noeud);
+    }
+    COLUMN* col=noeud->data;
+    switch (col->column_type) {
+        case INT:
+            col->data[n_lig] = malloc(sizeof(int));
+            *((int *) col->data[n_lig]) = *((int *) value);
+            break;
+        case CHAR:
+            col->data[n_lig] = malloc(sizeof(char));
+            *((char *) col->data[n_lig]) = *((char *) value);
+            break;
+        case UINT:
+            col->data[n_lig] = malloc(sizeof(unsigned int));
+            *((unsigned int *) col->data[n_lig]) = *((unsigned int *) value);
+            break;
+        case FLOAT:
+            col->data[n_lig] = malloc(sizeof(float));
+            *((float *) col->data[n_lig]) = *((float *) value);
+            break;
+        case DOUBLE:
+            col->data[n_lig] = malloc(sizeof(double));
+            *((double *) col->data[n_lig]) = *((double *) value);
+            break;
+        case STRING:
+            col->data[n_lig] = malloc(strlen((char *)value) + 1); // Allouer de la mémoire pour la chaîne de caractères + '\0'
+            strcpy((char *)col->data[n_lig], (char *)value);
+            break;
+        case STRUCTURE:
+            // Gestion des structures non implémentée
+            break;
+    }
+}
+
+
+/*
+ * Fonction : afficher_noms_colonnes
+ * Rôle : Afficher les noms des colonnes d'un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Aucun.
+ */
 void afficher_noms_colonnes(CDATAFRAME *cdf){
     int size= get_cdataframe_cols_size(cdf);
     LNODE* noeud = get_first_node(cdf);
@@ -522,6 +562,13 @@ void afficher_noms_colonnes(CDATAFRAME *cdf){
     }
 }
 
+/*
+ * Fonction : afficher_nb_lignes
+ * Rôle : Afficher le nombre de lignes d'un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Aucun.
+ */
 void afficher_nb_lignes(CDATAFRAME* cdf){
     LNODE* noeud= get_first_node(cdf);
     if (noeud==NULL){
@@ -531,6 +578,13 @@ void afficher_nb_lignes(CDATAFRAME* cdf){
     }
 }
 
+/*
+ * Fonction : afficher_nb_col
+ * Rôle : Afficher le nombre de colonnes d'un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Aucun.
+ */
 void afficher_nb_col(CDATAFRAME* cdf){
     int size= get_cdataframe_cols_size(cdf);
     if (size==0){
@@ -540,6 +594,14 @@ void afficher_nb_col(CDATAFRAME* cdf){
     }
 }
 
+/*
+ * Fonction : nb_cellule_egale
+ * Rôle : Compter le nombre de cellules égales à une valeur donnée dans un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ *   - value : Pointeur vers la valeur à rechercher (void*).
+ * Retour : Aucun.
+ */
 void nb_cellule_egale(CDATAFRAME* cdf, void* value){
     int size= get_cdataframe_cols_size(cdf),occ=0;
     LNODE* noeud= get_first_node(cdf);
@@ -554,6 +616,14 @@ void nb_cellule_egale(CDATAFRAME* cdf, void* value){
     }
 }
 
+/*
+ * Fonction : nb_cellule_sup
+ * Rôle : Compter le nombre de cellules supérieures à une valeur donnée dans un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ *   - value : Pointeur vers la valeur de comparaison (void*).
+ * Retour : Aucun.
+ */
 void nb_cellule_sup(CDATAFRAME* cdf, void* value){
     int size= get_cdataframe_cols_size(cdf),occ=0;
     LNODE* noeud= get_first_node(cdf);
@@ -568,6 +638,14 @@ void nb_cellule_sup(CDATAFRAME* cdf, void* value){
     }
 }
 
+/*
+ * Fonction : nb_cellule_inf
+ * Rôle : Compter le nombre de cellules inférieures à une valeur donnée dans un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ *   - value : Pointeur vers la valeur de comparaison (void*).
+ * Retour : Aucun.
+ */
 void nb_cellule_inf(CDATAFRAME* cdf, void* value){
     int size= get_cdataframe_cols_size(cdf),occ=0;
     LNODE* noeud= get_first_node(cdf);

@@ -21,6 +21,8 @@ CMakeFiles/PARTIE2.dir/PARTIE2/CdataFrame.c.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/malloc.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/errno.h \
+ C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/string.h \
+ C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/string_s.h \
  C:\Users\antoi\CLionProjects\ProjetCDataFrame\PARTIE2\CdataFrame.h \
  C:\Users\antoi\CLionProjects\ProjetCDataFrame\PARTIE2\list.h \
  C:\Users\antoi\CLionProjects\ProjetCDataFrame\PARTIE2\fonctions.h

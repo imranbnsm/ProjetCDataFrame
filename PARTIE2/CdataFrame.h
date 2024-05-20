@@ -110,6 +110,15 @@ void affichage_partiel_lignes(CDATAFRAME *cdf);
 void affichage_partiel_colonnes(CDATAFRAME *cdf);
 
 /*
+ * Fonction : ajouter_ligne
+ * Rôle : Ajouter une ligne à un dataframe.
+ * Paramètres :
+ *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
+ * Retour : Aucun.
+ */
+void ajouter_ligne(CDATAFRAME*cdf);
+
+/*
  * Fonction : supprimer_ligne
  * Rôle : Supprimer une ligne d'un dataframe.
  * Paramètres :
@@ -127,15 +136,6 @@ void supprimer_ligne(CDATAFRAME *cdf);
  * Retour : Aucun.
  */
 void ajouter_colonne(CDATAFRAME *cdf, ENUM_TYPE* list_type);
-
-/*
- * Fonction : supprimer_colonne
- * Rôle : Supprimer une colonne d'un dataframe.
- * Paramètres :
- *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
- * Retour : Aucun.
- */
-void supprimer_colonne(CDATAFRAME *cdf);
 
 /*
  * Fonction : renommer_colonne
@@ -163,9 +163,10 @@ void recherche_valeur(CDATAFRAME*cdf, void* valeur);
  *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
  *   - n_lig : Numéro de la ligne (int).
  *   - n_col : Numéro de la colonne (int).
+ *   - value : nouvelle valeur (tous types).
  * Retour : Aucun.
  */
-void acces_remplacer_valeur(CDATAFRAME *cdf, int n_lig, int n_col);
+void acces_remplacer_valeur(CDATAFRAME *cdf, int n_lig, int n_col, void* value);
 
 /*
  * Fonction : afficher_noms_colonnes
@@ -224,13 +225,5 @@ void nb_cellule_sup(CDATAFRAME* cdf, void* value);
  */
 void nb_cellule_inf(CDATAFRAME* cdf, void* value);
 
-/*
- * Fonction : ajouter_ligne
- * Rôle : Ajouter une ligne à un dataframe.
- * Paramètres :
- *   - cdf : Pointeur vers le dataframe (CDATAFRAME*).
- * Retour : Aucun.
- */
-void ajouter_ligne(CDATAFRAME*cdf);
 
 #endif // PROJETCDATAFRAME_CDATAFRAME_H
