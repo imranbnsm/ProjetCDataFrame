@@ -95,7 +95,6 @@ void supprimer_Colonne(CDATAFRAME *cdf, const char *col_name){
         title=noeud->data->titre;
     }
     delete_column(&noeud->data);
-    //lst_delete_lnode(cdf,noeud);
     for (int i=0;i<avoir_cdataframe_nb_col(cdf);i++){
         noeud->data=noeud->next->data;
     }

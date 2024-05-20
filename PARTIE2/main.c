@@ -198,6 +198,10 @@ int main() {
                             char val6[100];
                             printf("Saisir la nouvelle valeur :\n");
                             fgets(val6, 100, stdin);
+                            size_t len = strcspn(val6, "\n");
+                            if (val6[len] == '\n') {
+                                val6[len] = '\0';
+                            }
                             acces_remplacer_valeur(cdata,num_lig,num_col-1,val6);
                             break;
                         }
@@ -271,6 +275,10 @@ int main() {
                             char val6[100];
                             printf("Saisir la valeur :\n");
                             fgets(val6, 100, stdin);
+                            size_t len = strcspn(val6, "\n");
+                            if (val6[len] == '\n') {
+                                val6[len] = '\0';
+                            }
                             recherche_valeur(cdata,val6);
                             break;
                         }
@@ -338,6 +346,10 @@ int main() {
                             char val6[100];
                             printf("Saisir la valeur :\n");
                             fgets(val6, 100, stdin);
+                            size_t len = strcspn(val6, "\n");
+                            if (val6[len] == '\n') {
+                                val6[len] = '\0';
+                            }
                             nb_cellule_egale(cdata,val6);
                             break;
                         }
@@ -405,6 +417,10 @@ int main() {
                             char val6[100];
                             printf("Saisir la valeur :\n");
                             fgets(val6, 100, stdin);
+                            size_t len = strcspn(val6, "\n");
+                            if (val6[len] == '\n') {
+                                val6[len] = '\0';
+                            }
                             nb_cellule_inf(cdata,val6);
                             break;
                         }
@@ -472,6 +488,10 @@ int main() {
                             char val6[100];
                             printf("Saisir la valeur :\n");
                             fgets(val6, 100, stdin);
+                            size_t len = strcspn(val6, "\n");
+                            if (val6[len] == '\n') {
+                                val6[len] = '\0';
+                            }
                             nb_cellule_sup(cdata, val6);
                             break;
                         }
