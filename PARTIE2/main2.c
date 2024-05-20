@@ -8,16 +8,6 @@
 
 
 int main() {
-    //char str[5];
-    //COLUMN *mycol = creer_colonne(CHAR, "Column 1");
-    //char a = 'A', c = 'a';
-    //insert_value(mycol, &a);
-    //insert_value(mycol, NULL);
-    //insert_value(mycol, &c);
-    //afficher_col(mycol);
-    //nb_occurences(mycol,(void *) NULL);
-    //val_position(mycol,2);
-    //val_inf(mycol, (void*) 'z');
     int size, valid = 0;
     char c;
     while (valid!=1) {
@@ -41,7 +31,7 @@ int main() {
     //scanf("%d",&valeur);
     //ajouter_colonne(cdata,list_type);
     //affichage_Cdata(cdata);
-    //recherche_valeur(cdata, &valeur);
+    recherche_valeur(cdata);
     //afficher_nb_col(cdata);
     //afficher_nb_lignes(cdata);
     //nb_cellule_egale(cdata,&valeur);

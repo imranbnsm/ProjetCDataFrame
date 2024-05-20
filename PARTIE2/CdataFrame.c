@@ -368,7 +368,136 @@ void renommer_colonne(CDATAFRAME *cdf){
     noeud->data->titre = titre2;
 }
 
-void recherche_valeur(CDATAFRAME * cdf,void* value){
+void* input_utilisateur(ENUM_TYPE* list_type) {
+    int indice_type, valid=0;
+    while (valid!=1) {
+        printf("Quel type de colonne : ?\n 0 : pas de type\n 1 : entier positif\n 2 : entier\n 3 : caractere\n 4 : nombre decimal\n 5 : long nombre decimal\n 6 : chaine de caractere\n");
+        int result = scanf(" %d", &indice_type);
+        if (result == 1 && indice_type >= 0 && indice_type <= 6) {
+            valid = 1;
+        } else {
+            printf("Entree invalide. Veuillez reessayer.\n");
+            vider_buffer();
+        }
+    }
+    switch (list_type[indice_type]) {
+        case INT: {
+            int val1 = 0;
+            printf("Saisir la valeur :\n");
+            scanf(" %d", &val1);
+            vider_buffer();
+            return val1;
+            break;
+        }
+        case CHAR: {
+            char val2;
+            printf("Saisir la valeur :\n");
+            scanf(" %c", &val2);
+            vider_buffer();
+            return val2;
+            break;
+        }
+        case UINT: {
+            unsigned int val3 = 0;
+            printf("Saisir la valeur :\n");
+            scanf(" %u", &val3);
+            vider_buffer();
+            return val3;
+            break;
+        }
+        case FLOAT: {
+            float val4 = 0;
+            printf("Saisir la valeur :\n");
+            scanf(" %f", &val4);
+            vider_buffer();
+            return val4;
+            break;
+        }
+        case DOUBLE: {
+            double val5 = 0;
+            printf("Saisir la valeur :\n");
+            scanf(" %lf", &val5);
+            vider_buffer();
+            return val5;
+            break;
+        }
+        case STRING: {
+            char val6[100];
+            printf("Saisir la valeur :\n");
+            fgets(val6, 100, stdin);
+            return val6;
+            break;
+        }
+            /*case STRUCTURE:
+                //col->data[col->TL] = (struct *) malloc (sizeof(struct));
+                //*((struct*)col->data[col->TL])= *((struct*)value);
+                break;*/
+        case NULLVAL:
+            break;
+    }
+}
+
+void recherche_valeur(CDATAFRAME * cdf,ENUM_TYPE* list_type){
+    int indice_type, valid=0;
+    while (valid!=1) {
+        printf("Quel type de colonne : ?\n 0 : pas de type\n 1 : entier positif\n 2 : entier\n 3 : caractere\n 4 : nombre decimal\n 5 : long nombre decimal\n 6 : chaine de caractere\n");
+        int result = scanf(" %d", &indice_type);
+        if (result == 1 && indice_type >= 0 && indice_type <= 6) {
+            valid = 1;
+        } else {
+            printf("Entree invalide. Veuillez reessayer.\n");
+            vider_buffer();
+        }
+    }
+    switch (list_type[indice_type]) {
+        case INT: {
+            int val1 = 0;
+            printf("Saisir la valeur :\n");
+            scanf(" %d", &val1);
+            vider_buffer();
+            break;
+        }
+        case CHAR: {
+            char val2;
+            printf("Saisir la valeur :\n");
+            scanf(" %c", &val2);
+            vider_buffer();
+            break;
+        }
+        case UINT: {
+            unsigned int val3 = 0;
+            printf("Saisir la valeur :\n");
+            scanf(" %u", &val3);
+            vider_buffer();
+            break;
+        }
+        case FLOAT: {
+            float val4 = 0;
+            printf("Saisir la valeur :\n");
+            scanf(" %f", &val4);
+            vider_buffer();
+            break;
+        }
+        case DOUBLE: {
+            double val5 = 0;
+            printf("Saisir la valeur :\n");
+            scanf(" %lf", &val5);
+            vider_buffer();
+            break;
+        }
+        case STRING: {
+            char val6[100];
+            printf("Saisir la valeur :\n");
+            fgets(val6, 100, stdin);
+            break;
+        }
+            /*case STRUCTURE:
+                //col->data[col->TL] = (struct *) malloc (sizeof(struct));
+                //*((struct*)col->data[col->TL])= *((struct*)value);
+                break;*/
+        case NULLVAL:
+            break;
+    }
     int presence = -1, size= get_cdataframe_cols_size(cdf);
     LNODE* noeud= get_first_node(cdf);
     for(int i = 0; i < size; i++){
