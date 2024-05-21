@@ -287,7 +287,7 @@ void affichage_partiel_colonnes(CDATAFRAME *cdf){
         printf("Le Cdataframe est vide.");
     }else{
         LNODE*noeud = get_first_node(cdf);
-        for (int i = 0; i<size;i++){
+        for (int i = 0; i<nb_col;i++){
             afficher_col(noeud->data);
             noeud = get_next_node(cdf,noeud);
             printf("\n");
