@@ -305,6 +305,7 @@ void affichage_partiel_colonnes(CDATAFRAME *cdf){
 void ajouter_ligne(CDATAFRAME*cdf){
     int size= avoir_cdataframe_nb_col(cdf);
     LNODE* noeud = get_first_node(cdf);
+    vider_buffer();
     for(int i = 0; i<size; i++){
         char type[100];
         switch(noeud->data->column_type) {
